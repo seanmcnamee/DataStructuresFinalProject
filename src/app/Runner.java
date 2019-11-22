@@ -2,10 +2,35 @@ package app;
 
 import java.util.Scanner;
 
+import app.circuitNode.Data;
+import app.circuitNode.Gate;
+import app.circuitNode.CircuitNode;
 import app.tree.BTree;
 
 public class Runner {
     public static void main(String[] args) {
+        String test = "(((A*B)*C)+(D+E))";//"((A+B)*(A+C))";//
+
+        Circuit c = new Circuit(test);
+        System.out.println("Data inputs:");
+        for (Character key : c.getInputs().keySet()) {
+            System.out.println(key + " - " + c.getInputs().get(key));
+        }
+
+        System.out.println("\nCircuit Pieces: ");
+
+        for (CircuitNode s : c.getNodes()) {
+            if (s.getClass() == Data.class) {
+                System.out.println("A regular data point for some reason");
+                System.out.println(c.findKey(s));
+            }   else if (s.getClass() == Gate.class) {
+                System.out.println("Gate:");
+                System.out.println("\t"+((Gate)s).getGateString(c));
+            }
+        }   
+
+
+
 
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);

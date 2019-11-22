@@ -2,26 +2,24 @@ package app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Stack;
 
+import app.circuitNode.Data;
+import app.circuitNode.Gate;
+import app.circuitNode.CircuitNode;
+
 /**
- * Circuit
+ * Represents a Circuit in terms of a Node (Gate and Data) Array.
+ * Includes a Hashtable to easily manipulate Data inputs
  */
 public class Circuit {
 
-    public static void main(String[] args) {
-        String test = "((A+B)*(A+C))";//"(((A*B)*C)+(D+E))";
-
-        Circuit c = new Circuit(test);
-        for (String s : c.connections) {
-            System.out.println(s);
-        }   
-    }
-
     final char START = '(', END = ')', ADD = '+', MULT = '*', NOT = '~';
-    String[] connections;
-
+    private CircuitNode[] nodes; //All the Important points inside the circuit
+    private Hashtable<Character, Data> inputs = new Hashtable<Character, Data> (); //Maps Data to user's characters
+    private int firstInput = Integer.MAX_VALUE; //Remembers ASCII of a-Most character
 
     // Take a file to produce circuit
     public Circuit(File path) {
@@ -29,7 +27,7 @@ public class Circuit {
         Scanner input;
         try {
             input = new Scanner(path);
-            equation = input.next();
+            equation = input.nextLine();
             equationToCircuit(equation);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -41,38 +39,69 @@ public class Circuit {
         equationToCircuit(equation);
     }
 
+    /**
+     * Uses a stack to create the Node array and the Mapping of Characters to Data inputs
+     * @param equation
+     */
     public void equationToCircuit(String equation) {
         int equationNum = 0;
-        Stack<Integer> parenthasis = new Stack<Integer>();
-        Stack<String> terms = new Stack<String>();
-        this.connections = new String[countOperators(equation)];
-        
+        Stack<CircuitNode> terms = new Stack<CircuitNode>(); //Remember the order of how things are seen in the equation
+        this.nodes = new CircuitNode[countOperators(equation)]; //Each of the terms (will be sorted with timings)
+        int equationLength = equation.length();
 
-        //Yes some of these cases are redundant. The goal is to change them from being String to actual objects.
-        //TODO make this work for NOT then AND then OR (otherwise just keep parenthasis)
-        for (int i = 0; i < equation.length(); i++) {
+        //Look at each part of the equation
+        for (int i = 0; i < equationLength; i++) {
+            System.out.println("Equation: " + equation);
+            System.out.println("\tLocation: " + i + " < " + equationLength);
             char index = equation.charAt(i);
             switch(index) {
+                //A closing parenthasis, create a new Element (using operator and data point(s))
                 case START:
-                    parenthasis.add(i);
                     break;
-                case END:
+                case END: //Create a new (Node) Element, and update the position in the array 
+                    System.out.println("\tStacking Node");
                     //Create new term
-                    addElement(terms, connections, equationNum);
+                    addElement(terms, equationNum);
                     equationNum++;
                     break;
-                case ADD | MULT | NOT:
-                    terms.add(index+"");
+                case ADD: //Operator (AND/MULT/NOT), Add a full gate to the stack, but only the operator field
+                    System.out.println("\tStacking Operator +");
+                    terms.add(new Gate(null, Gate.TYPE.OR, null));
                     break;
-                default:
-                    terms.add(index+"");
+                case MULT:
+                    System.out.println("\tStacking Operator *");
+                    terms.add(new Gate(null, Gate.TYPE.AND, null));
+                    break;
+                case NOT:
+                    System.out.println("\tStacking Operator ~");    
+                    terms.add(new Gate(null, Gate.TYPE.NOT, null));
+                    break;
+                
+                default: //Regular input, add a Data to the stack.
+                    System.out.println("\tStacking Data " + index);
+                    //Remembers the smallest input, and pairs each Data Input with the user's character key
+                    if (inputs.containsKey(index)) {
+                        System.out.println("\t\tIt already exists");
+                        terms.add(inputs.get(index));
+                    }   else { //Only add a mapping for new characters
+                        System.out.println("\t\tNew Data point");
+                        if ((int)index < firstInput) {
+                            firstInput = (int)index;
+                        }
+                        CircuitNode temp = new Data(false);
+                        inputs.put(index, (Data)temp);
+                        terms.add(temp);
+                    }
             }
         }
 
-        //addElement(terms, connections, equationNum);
-
     }
     
+    /**
+     * Used to figure out how big the array of Nodes has to be.
+     * @param equation The user inputted String with
+     * @return The number of *, +, and ~ in the equation.
+     */
     private int countOperators(String equation) {
         int count = 0;
         for (int i = 0; i < equation.length(); i++) {
@@ -84,15 +113,77 @@ public class Circuit {
         return count;
     }
 
-    private void addElement(Stack<String> terms, String[] connections, int equationNum) {
-        String term = terms.pop();
-        char operator = terms.pop().charAt(0);
-        if (operator != NOT) {
-            term = terms.pop() + operator + term;
+    /**
+     * Uses the top Circuit Nodes from the stack to create a new Gate.
+     * This new Gate is added to the stack and the this.nodes array
+     * @param terms The stack which is used for ordering terms (Nodes)
+     * @param equationNum the location in the array to place the new complete Gate
+     */
+    private void addElement(Stack<CircuitNode> terms, int equationNum) {
+        CircuitNode fullElement, term;
+        term = terms.pop(); //Top element on the stack can be a Data or Gate.
+        Gate operator = (Gate)terms.pop(); //Second element on the stack MUST be an Operator (partial Gate)
+
+        //A NOT only requires one Data point. AND/OR require two
+        if (operator.getOperator() == Gate.TYPE.NOT) {
+            fullElement = new Gate(term, operator.getOperator(), null);
+        }   else {
+            fullElement = new Gate(terms.pop(), operator.getOperator(), term);
         }
-        terms.add("n" + equationNum);
-        connections[equationNum] = ("n" + equationNum + ": " + term);
+
+        //The fullElement might become an input to future Gates. Either way, store it into the array.
+        terms.add(fullElement);
+        nodes[equationNum] = (fullElement);
     }
 
-    
+    /**
+     * @return The Character that the user inputted to represent this Node
+     * @param value The internally created/stored Circuit Node
+     */
+    public Character findKey(CircuitNode value) {
+        for (Character key : inputs.keySet()) {
+            if (inputs.get(key) == value) {
+                return key;
+            }
+        }
+        return '_';
+    }
+
+    /**
+     * Uses a Bubble sort to organize the array of Nodes.
+     * First, it has to set these delays for the Nodes.
+     * @param delayAND
+     * @param delayOR
+     * @param delayNOT
+     */
+    private void sortArray(int delayAND, int delayOR, int delayNOT) {
+        //First, set the gate delays so they CAN be sorted
+        setDelays(delayAND, delayOR, delayNOT);
+
+
+    }
+
+    //Calls the sorter with default gate delays
+    private void sortArray() {
+        final int   delayAND = 5,
+                    delayOR = 4,
+                    delayNOT = 2;
+        sortArray(delayAND, delayOR, delayNOT);
+    }
+
+    private void setDelays(int delayAND, int delayOR, int delayNOT) {
+        //Set OUTPUT delay depending on how many gates a side goes
+        
+        for (CircuitNode n : nodes) {
+
+        }
+    }
+
+    public Hashtable<Character, Data> getInputs() {
+        return inputs;
+    }
+
+    public CircuitNode[] getNodes() {
+        return nodes;
+    }
 }

@@ -1,5 +1,7 @@
 package app;
 
+import java.io.File;
+
 import app.tree.BTree;
 
 /**
@@ -8,10 +10,15 @@ import app.tree.BTree;
 public class Detector {
 
     final int MAX_TIME = 999; //TODO figure out a good max timing
+    private Circuit circuit;
     //TODO Add The circuit data structure here and in the constructor
 
-    public Detector() {
+    public Detector(File f) {
+        circuit = new Circuit(f);
+    }
 
+    public Detector(String s) {
+        circuit = new Circuit(s);
     }
 
 
