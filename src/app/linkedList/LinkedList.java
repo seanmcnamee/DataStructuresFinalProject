@@ -57,6 +57,43 @@ public class LinkedList {
         }
     }
 
+    public void addToEach(int value) {
+        LinkedListNode trav = root;
+        if(trav != null) {
+            while (trav != null) {
+                trav.setData(trav.getData()+value);
+                trav = trav.getNext();
+            }
+        }
+    }
+
+    public static LinkedList sortWithOther(LinkedList first, LinkedList other) {
+        LinkedList newList = new LinkedList();
+        LinkedListNode t1 = first.root;
+        LinkedListNode t2 = other.root;
+        while (t1 != null && t2 != null) {
+            if (t1.getData() > t2.getData()) {
+                newList.addToBack(new LinkedListNode(t2.getData()));
+                t2 = t2.getNext();
+            }   else {
+                newList.addToBack(new LinkedListNode(t1.getData()));
+                t1 = t1.getNext();
+            }
+        }
+
+        if (t2 != null) {
+            t1 = t2;
+        }
+        while (t1 != null) {
+            newList.addToBack(new LinkedListNode(t1.getData()));
+            t1 = t1.getNext();
+        }
+
+
+        return newList;
+    }
+
+
     //You dumb ass you have to loop through the length of the array times and you don't even have indexes! DUMB ASS
     //We have to make this work like merge sort!!!
     //Bubble sort this LinkedList
@@ -96,10 +133,12 @@ public class LinkedList {
     public void printList() {
         LinkedListNode trav = root;
         if(trav != null) {
-            while (trav.getNext() != null) {
+            while (trav!= null) {
                 System.out.print(trav.getData() + " ");
                 trav = trav.getNext();
             }
+        }   else {
+            System.out.print("Empty");
         }
         System.out.println();
     }

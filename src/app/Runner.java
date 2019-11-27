@@ -12,21 +12,32 @@ import app.tree.BTree;
 public class Runner {
     public static void main(String[] args) {
 
-        LinkedList list = new LinkedList();
+        /*
+        //Num of elements
+        int elements = 8, maxNum = 30;
+        LinkedList[] list = new LinkedList[elements];
 
-        for (int i = 0; i < 10; i++) {
-            list.addToBack(new LinkedListNode((int)(Math.random()*30)));
+        for (int i = 0; i < elements; i++) {
+            list[i] = new LinkedList();
+            list[i].addToBack(new LinkedListNode((int)(Math.random()*maxNum)));
+            list[i].printList();
+            //list.addToBack(new LinkedListNode((int)(Math.random()*30)));
         }
 
-        System.out.println("Unsorted:");
-        list.printList();
+        int power = 0;
+        while ((elements/(Math.pow(2, power))) >= 2) {
+            //System.out.println("From 0-" + (elements/(Math.pow(2, power))));
+            for (int i = 0; i < elements/(Math.pow(2, power)); i+=2) {
+                list[i/2] = LinkedList.sortWithOther(list[i], list[i+1]);
+                list[i/2].printList();
+            }
+            power++;
+        }
+        */
 
-        list.sort();
+        //list[0].printList();
 
-        System.out.println("Sorted:");
-        list.printList();
-
-        /*
+        
         String test = "(((A*B)*C)+(D+E))";//"((A+B)*(A+C))";//
 
         Circuit c = new Circuit(test);
@@ -44,11 +55,15 @@ public class Runner {
             }   else if (s.getClass() == Gate.class) {
                 System.out.println("Gate:");
                 System.out.println("\t"+((Gate)s).getGateString(c));
+                ((Gate)s).getDelays().printList();
             }
+            
         }   
 
+        
 
-        */
+
+        
 
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);

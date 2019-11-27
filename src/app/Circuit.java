@@ -149,36 +149,6 @@ public class Circuit {
         return '_';
     }
 
-    /**
-     * Uses a Bubble sort to organize the array of Nodes.
-     * First, it has to set these delays for the Nodes.
-     * @param delayAND
-     * @param delayOR
-     * @param delayNOT
-     */
-    private void sortArray(int delayAND, int delayOR, int delayNOT) {
-        //First, set the gate delays so they CAN be sorted
-        setDelays(delayAND, delayOR, delayNOT);
-
-
-    }
-
-    //Calls the sorter with default gate delays
-    private void sortArray() {
-        final int   delayAND = 5,
-                    delayOR = 4,
-                    delayNOT = 2;
-        sortArray(delayAND, delayOR, delayNOT);
-    }
-
-    private void setDelays(int delayAND, int delayOR, int delayNOT) {
-        //Set OUTPUT delay depending on how many gates a side goes
-        
-        for (CircuitNode n : nodes) {
-
-        }
-    }
-
     public Hashtable<Character, Data> getInputs() {
         return inputs;
     }
