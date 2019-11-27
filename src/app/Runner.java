@@ -60,6 +60,17 @@ public class Runner {
             
         }   
 
+        for (Character key : c.getInputs().keySet()) {
+            System.out.println(key + " - " + c.getInputs().get(key).getValue());
+        }
+
+        boolean[] boolTest = {true, true, false, false, true};
+        c.setInputs(boolTest);
+        System.out.println("...");
+
+        for (Character key : c.getInputs().keySet()) {
+            System.out.println(key + " - " + c.getInputs().get(key).getValue());
+        }
         
 
 

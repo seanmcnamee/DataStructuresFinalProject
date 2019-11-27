@@ -1,7 +1,5 @@
 package app.circuitNode;
 
-import java.util.Hashtable;
-
 import app.Circuit;
 import app.linkedList.LinkedList;
 import app.linkedList.LinkedListNode;
@@ -21,20 +19,19 @@ public class Data implements CircuitNode {
         return this.value;
     }
 
+    @Override
+    /**
+     * The delay directly from an input is 0
+     */
+    public LinkedList getDelays() {
+        return new LinkedList(new LinkedListNode(0));
+    }
+
     public void setValue(boolean newBool) {
         this.value = newBool;
     }
 
     public Character getString(Circuit c) {
         return c.findKey(this);
-    }
-
-    @Override
-    /**
-     * The delay directly from an input is 0
-     */
-    public LinkedList getDelays() {
-        System.out.println("Giving back a zero delay");
-        return new LinkedList(new LinkedListNode(0));
     }
 }

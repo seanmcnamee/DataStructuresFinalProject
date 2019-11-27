@@ -1,7 +1,5 @@
 package app.circuitNode;
 
-import java.util.Hashtable;
-
 import app.Circuit;
 import app.linkedList.LinkedList;
 

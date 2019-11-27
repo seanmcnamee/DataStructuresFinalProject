@@ -39,6 +39,24 @@ public class Circuit {
         equationToCircuit(equation);
     }
 
+
+    public void setInputs(int inputs) {
+
+    }
+
+    //Assumes correct size of array, with inputs[0] as the a-Most character
+    public void setInputs(boolean[] inputValues) {
+        int currentInputAscii = firstInput;
+        for (boolean b : inputValues) {
+            while (this.inputs.get((char)currentInputAscii) == null) {
+                currentInputAscii++;
+            }
+            this.inputs.get((char)currentInputAscii).setValue(b);
+            currentInputAscii++;
+        }
+    }
+
+
     /**
      * Uses a stack to create the Node array and the Mapping of Characters to Data inputs
      * @param equation
