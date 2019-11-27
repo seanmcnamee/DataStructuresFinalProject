@@ -57,10 +57,49 @@ public class LinkedList {
         }
     }
 
-    public swapNextTwo(LinkedList)
-
     //Bubble sort this LinkedList
     public void sort() {
-        
+        LinkedListNode previous, current, next;
+        previous = null;
+        current = root;
+        if (current != null)    {
+            next = root.getNext();
+        }   else {
+            next = null;
+        }
+
+        //Loop through all checks
+        while (next != null) {
+            System.out.println("Current nodes: " + ((previous != null)? previous.getData(): "NaN") + ", " + ((current != null)? current.getData(): "NaN") + ", " + ((next != null)? next.getData(): "NaN"));
+            //Compare values
+            if (current.getData() < next.getData()) {
+                //Swap
+                current.setNext(next.getNext());
+                next.setNext(current);
+                //Watch out for null previous
+                if (previous == null) {
+                    root = next;
+                }   else {
+                    previous = next;
+                }
+            }
+            System.out.println("Current nodes: " + ((previous != null)? previous.getData(): "NaN") + ", " + ((current != null)? current.getData(): "NaN") + ", " + ((next != null)? next.getData(): "NaN"));
+            previous = current;
+            current = previous.getNext();
+            next = previous.getNext().getNext();
+
+        }
     }
+
+    public void printList() {
+        LinkedListNode trav = root;
+        if(trav != null) {
+            while (trav.getNext() != null) {
+                System.out.print(trav.getData() + " ");
+                trav = trav.getNext();
+            }
+        }
+        System.out.println();
+    }
+
 }

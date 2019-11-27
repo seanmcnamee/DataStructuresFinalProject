@@ -4,11 +4,29 @@ import java.util.Scanner;
 
 import app.circuitNode.Data;
 import app.circuitNode.Gate;
+import app.linkedList.LinkedList;
+import app.linkedList.LinkedListNode;
 import app.circuitNode.CircuitNode;
 import app.tree.BTree;
 
 public class Runner {
     public static void main(String[] args) {
+
+        LinkedList list = new LinkedList();
+
+        for (int i = 0; i < 10; i++) {
+            list.addToBack(new LinkedListNode((int)(Math.random()*30)));
+        }
+
+        System.out.println("Unsorted:");
+        list.printList();
+
+        list.sort();
+
+        System.out.println("Sorted:");
+        list.printList();
+
+        /*
         String test = "(((A*B)*C)+(D+E))";//"((A+B)*(A+C))";//
 
         Circuit c = new Circuit(test);
@@ -30,7 +48,7 @@ public class Runner {
         }   
 
 
-
+        */
 
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);
@@ -38,12 +56,12 @@ public class Runner {
         //Load in and create a circuit.
 
 
-
+        /*
 
         Scanner scan = new Scanner(System.in);
-        /* Creating object of BT */
+        // Creating object of BT
         BTree bt = new BTree();
-        /* Perform tree operations */
+        // Perform tree operations
         System.out.println("Binary Tree Test\n");
         char ch;
         do {
@@ -72,7 +90,7 @@ public class Runner {
                 System.out.println("Wrong Entry \n ");
                 break;
             }
-            /* Display tree */
+            // Display tree
             System.out.print("\nPost order : ");
             bt.postorder();
             System.out.print("\nPre order : ");
@@ -84,5 +102,6 @@ public class Runner {
         } while (ch == 'Y' || ch == 'y');
 
         scan.close();
+        */
     }
 }
