@@ -88,9 +88,20 @@ public class LinkedList {
             newList.addToBack(new LinkedListNode(t1.getData()));
             t1 = t1.getNext();
         }
-
-
         return newList;
+    }
+
+    public void RemoveDuplicates() {
+        LinkedListNode trav = root;
+        if(trav != null) {
+            while (trav.getNext() != null) {
+                if (trav.getData()==trav.getNext().getData()) {
+                    trav.setNext(trav.getNext().getNext());
+                    continue;
+                }
+                trav = trav.getNext();
+            }
+        }
     }
 
 

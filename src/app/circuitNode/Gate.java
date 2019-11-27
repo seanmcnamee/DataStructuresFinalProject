@@ -80,6 +80,7 @@ public class Gate implements CircuitNode {
             } else {
                 this.setOfDelays = LinkedList.sortWithOther(this.leftInput.getDelays(), this.rightInput.getDelays());
             }
+            this.setOfDelays.RemoveDuplicates();
             System.out.println("Delays:");
             this.setOfDelays.printList();
             System.out.println("Adding " + getGateDelay() + " to each delay");
