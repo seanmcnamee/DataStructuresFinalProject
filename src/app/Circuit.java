@@ -40,8 +40,8 @@ public class Circuit {
     }
 
 
+    //TODO make sure the length of this integer is good for the inputs. If not, add FALSE's to the top. Call the below method.
     public void setInputs(int inputs) {
-
     }
 
     //Assumes correct size of array, with inputs[0] as the a-Most character
