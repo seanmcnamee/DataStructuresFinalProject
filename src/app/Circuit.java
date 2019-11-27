@@ -40,8 +40,28 @@ public class Circuit {
     }
 
 
-    //TODO make sure the length of this integer is good for the inputs. If not, add FALSE's to the top. Call the below method.
-    public void setInputs(int inputs) {
+    /**
+     * Translates an integer into a boolean array, then calls setInputs(boolean[] b)
+     * @param inputValues A base 2 integer, where 1 represents true and 0 represents false
+     */
+    public void setInputs(int inputValues) {
+        String strEnteredInputs = inputValues+"";
+        int enteredInputs = strEnteredInputs.length();
+        int numOfInputs = inputs.size();
+        int amountToAdd = numOfInputs-enteredInputs;
+        if(amountToAdd < 0) amountToAdd = 0;
+        boolean[] boolInputs = new boolean[inputs.size()];
+
+        //System.out.println("Entered: " + strEnteredInputs + ", length: " + enteredInputs + ", numOfInputs: " + numOfInputs + ", amountToAdd: " + amountToAdd);
+        for (int i = 0; i < numOfInputs; i++) {
+            if (i < amountToAdd) {
+                boolInputs[i] = false;
+            }   else {
+                boolInputs[i] = (strEnteredInputs.charAt(i-amountToAdd)=='1');
+            }
+        }
+        
+        setInputs(boolInputs);
     }
 
     //Assumes correct size of array, with inputs[0] as the a-Most character
@@ -51,6 +71,7 @@ public class Circuit {
             while (this.inputs.get((char)currentInputAscii) == null) {
                 currentInputAscii++;
             }
+            //System.out.println("Bool: " + b + " for " + (char)currentInputAscii);
             this.inputs.get((char)currentInputAscii).setValue(b);
             currentInputAscii++;
         }

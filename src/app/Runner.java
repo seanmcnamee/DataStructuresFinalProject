@@ -64,8 +64,7 @@ public class Runner {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
 
-        boolean[] boolTest = {true, true, false, false, true};
-        c.setInputs(boolTest);
+        c.setInputs(11110);
         System.out.println("...");
 
         for (Character key : c.getInputs().keySet()) {
