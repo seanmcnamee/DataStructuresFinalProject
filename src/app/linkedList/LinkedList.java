@@ -57,6 +57,8 @@ public class LinkedList {
         }
     }
 
+    //You dumb ass you have to loop through the length of the array times and you don't even have indexes! DUMB ASS
+    //We have to make this work like merge sort!!!
     //Bubble sort this LinkedList
     public void sort() {
         LinkedListNode previous, current, next;
