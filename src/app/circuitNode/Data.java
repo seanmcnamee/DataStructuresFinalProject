@@ -27,6 +27,11 @@ public class Data implements CircuitNode {
         return new LinkedList(new LinkedListNode(0));
     }
 
+    @Override
+    public int getGateDelay() {
+        return 0;
+    }
+
     public void setValue(boolean newBool) {
         this.value = newBool;
     }
@@ -34,4 +39,6 @@ public class Data implements CircuitNode {
     public Character getString(Circuit c) {
         return c.findKey(this);
     }
+
+
 }

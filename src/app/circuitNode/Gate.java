@@ -16,7 +16,7 @@ public class Gate implements CircuitNode {
         AND, OR, NOT
     };
 
-    private int getGateDelay() {
+    public int getGateDelay() {
         if (operator == TYPE.AND)
             return 25;
         if (operator == TYPE.OR)
@@ -30,8 +30,10 @@ public class Gate implements CircuitNode {
     // The type of gate
     private final TYPE operator;
 
-    // All the times this gate is updated
+    // All the times this gate TAKES PREVIOUS inputs. 
     private LinkedList setOfDelays;
+
+    //TODO add support for changeing internal node
 
     // Internal node for gate
     private boolean internalValue;
@@ -75,15 +77,16 @@ public class Gate implements CircuitNode {
         if (this.leftInput != null || this.rightInput != null) {
             if (this.rightInput == null) {
                 this.setOfDelays = this.leftInput.getDelays();
+                this.setOfDelays.addToEach(this.leftInput.getGateDelay());
             } else {
-                this.setOfDelays = LinkedList.sortWithOther(this.leftInput.getDelays(), this.rightInput.getDelays());
+                this.setOfDelays = LinkedList.sortWithOtherAdded(this.leftInput.getDelays(), this.leftInput.getGateDelay(), this.rightInput.getDelays(), this.rightInput.getGateDelay());
             }
             this.setOfDelays.RemoveDuplicates();
             System.out.println("Delays:");
             this.setOfDelays.printList();
-            System.out.println("Adding " + getGateDelay() + " to each delay");
-            this.setOfDelays.addToEach(getGateDelay());
-            this.setOfDelays.printList();
+            //System.out.println("Adding " + getGateDelay() + " to each delay");
+            //this.setOfDelays.addToEach(getGateDelay());
+            //this.setOfDelays.printList();
         }
 
     }

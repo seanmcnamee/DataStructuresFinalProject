@@ -8,5 +8,6 @@ import app.linkedList.LinkedList;
 public interface CircuitNode {
     public LinkedList getDelays();
     public boolean getValue();
+    public int getGateDelay();
     
 }

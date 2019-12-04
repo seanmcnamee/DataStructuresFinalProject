@@ -108,28 +108,29 @@ public class LinkedList {
      * @param other The other linekd list
      * @return A fully sorted array.
      */
-    public static LinkedList sortWithOther(LinkedList first, LinkedList other) {
+    public static LinkedList sortWithOtherAdded(LinkedList first, int firstDelay, LinkedList other, int otherDelay) {
         LinkedList newList = new LinkedList();
         LinkedListNode t1 = first.root;
         LinkedListNode t2 = other.root;
 
         //Pick the smaller of each list until one is empty
         while (t1 != null && t2 != null) {
-            if (t1.getData() > t2.getData()) {
-                newList.addToBack(new LinkedListNode(t2.getData()));
+            if (t1.getData()+firstDelay > t2.getData()+otherDelay) {
+                newList.addToBack(new LinkedListNode(t2.getData()+otherDelay));
                 t2 = t2.getNext();
             }   else {
-                newList.addToBack(new LinkedListNode(t1.getData()));
+                newList.addToBack(new LinkedListNode(t1.getData()+firstDelay));
                 t1 = t1.getNext();
             }
         }
 
-        //Then add all the elements on (can't just tack on one because changes to one will affect another)
+        //Then add all the elements on (can't just tack on one because changes to one linkedlist will affect another)
         if (t2 != null) {
             t1 = t2;
+            firstDelay = otherDelay;
         }
         while (t1 != null) {
-            newList.addToBack(new LinkedListNode(t1.getData()));
+            newList.addToBack(new LinkedListNode(t1.getData()+firstDelay));
             t1 = t1.getNext();
         }
         return newList;

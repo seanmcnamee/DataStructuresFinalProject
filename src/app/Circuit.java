@@ -195,4 +195,6 @@ public class Circuit {
     public CircuitNode[] getNodes() {
         return nodes;
     }
+
+    //TODO Sort Circuit by smallest delays
 }
