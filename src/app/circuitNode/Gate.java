@@ -8,7 +8,11 @@ import app.linkedList.LinkedListNode;
 import app.linkedList.MyLinkedList;
 
 /**
- * Gate: Uses a Queue for setting the internal nodes in the proper order
+ * Gate: represents some type of operation and at least one input
+ * 
+ * //////////Project Requirements/////////
+ * Uses a Queue for setting the internal nodes in the proper order
+ * Uses a LinkedList for organizing all the delay times for this Gate
  */
 public class Gate implements CircuitNode {
 
@@ -33,6 +37,9 @@ public class Gate implements CircuitNode {
         this.rightInput = rightInput;
         this.operator = operator;
         calcGateDelays();
+        if (this.leftInput != null) {
+            internalValue = calcValue();
+        }
     }
 
     // Gate types and their delays
@@ -112,7 +119,7 @@ public class Gate implements CircuitNode {
         public int getOutputTime() {    return outputTime;  }
     }
 
-    public void initializeInputDelays() {
+    public void initializeInputQueue() {
         LinkedListNode trav = this.setOfDelays.getRoot();
         while(trav != null) {
             inputDelays.add(new DelayUpdate(trav.getData(), getGateDelay()));
@@ -129,12 +136,24 @@ public class Gate implements CircuitNode {
         internalValue = outputDelays.remove().getInternalNode();
     }
 
+    public int largestQueueSize() {
+        return Math.max(inputDelays.size(), outputDelays.size());
+    }
+
     public int getNextInputTime() { 
-        return inputDelays.peek().getInputTime();
+        if (inputDelays.size() > 0) {
+            return inputDelays.peek().getInputTime();
+        }   else {
+            return -1;
+        }
     }
 
     public int getNextOutputTime() {
-        return outputDelays.peek().getOutputTime();
+        if (outputDelays.size() > 0) {
+            return outputDelays.peek().getOutputTime();
+        }   else {
+            return -1;
+        }
     }
 
 

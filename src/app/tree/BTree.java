@@ -15,19 +15,19 @@ public class BTree {
     }
 
     /* Functions to insert data */
-    public void insert(int startV, int endV, Glitch g) {
-        root = insert(root, startV, endV, g);
+    public void insert(BTNode nodeToInsert) {
+        root = insert(root, nodeToInsert);
     }
 
     /* Function to insert data recursively */
-    private BTNode insert(BTNode node, int startV, int endV, Glitch g) {
+    //TODO FIX this garbage
+    private BTNode insert(BTNode node, BTNode toInsert) {
         if (node == null)
-            node = new BTNode(startV, endV, g);
-        else {
-            if (node.getRight() == null)
-                node.right = insert(node.right, startV, endV, g);
-            else
-                node.left = insert(node.left, startV, endV, g);
+            node = toInsert;
+        else if (node.getRight() == null) {
+            node.right = insert(node.right, toInsert);
+        } else {
+            node.left = insert(node.left, toInsert);
         }
         return node;
     }
@@ -42,10 +42,10 @@ public class BTree {
         if (r == null)
             return 0;
         else {
-            int l = 1;
-            l += countNodes(r.getLeft());
-            l += countNodes(r.getRight());
-            return l;
+            int count = 1;
+            count += countNodes(r.getLeft());
+            count += countNodes(r.getRight());
+            return count;
         }
     }
 

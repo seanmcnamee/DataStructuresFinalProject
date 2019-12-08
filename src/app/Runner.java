@@ -64,13 +64,29 @@ public class Runner {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
 
-        c.setInputs(11110);
-        System.out.println("...");
+        Detector d = new Detector(c);
+        BTree tree = new BTree();
 
+        
+        System.out.println(tree.countNodes());
+
+
+        //1
+        d.testStateChange(00000, 11111, tree);
+        System.out.println("...");
         for (Character key : c.getInputs().keySet()) {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
-        
+        System.out.println(tree.countNodes());
+
+
+        //2
+        d.testStateChange(11111, 10101, tree);
+        System.out.println("...");
+        for (Character key : c.getInputs().keySet()) {
+            System.out.println(key + " - " + c.getInputs().get(key).getValue());
+        }
+        System.out.println(tree.countNodes());
 
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);

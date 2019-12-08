@@ -11,8 +11,13 @@ import app.circuitNode.Gate;
 import app.circuitNode.CircuitNode;
 
 /**
- * Represents a Circuit in terms of a Node (Gate and Data) Array.
+ * 
  * Includes a Hashtable to easily manipulate Data inputs
+ * 
+ * //////Project Requirments////////
+ * Represents a Circuit in terms of a Node (Gate and Data) Array.
+ * Includes a BubbleSort to sort the nodes
+ * Includes a Stack used when translating from a String equation to its representation
  */
 public class Circuit {
 
@@ -204,23 +209,42 @@ public class Circuit {
         return nodes[nodes.length-1].getValue();
     }
 
-    //TODO Sort Circuit by smallest delays in the inputQueue (bubbleSort)
-    public void sortByInputQueues(int... nums) {
-        int numOfInputs = nums.length;
+    public int largerOfLast() {
+        Gate last = ((Gate)nodes[nodes.length-1]);
+        return Math.max(last.getNextInputTime(), last.getNextOutputTime());
+    }
+
+    
+    /**
+     * Must be done before EACH state change check.
+     * This is because the queues get used up throughout a check.
+     */
+    public void initializeGatesForCheck() {
+        for (CircuitNode c : nodes) {
+            Gate g = (Gate)c;
+            g.initializeInputQueue();
+        }
+    }
+
+
+
+    /**
+     * Bubble sort based on the largest of the InputQueue and OutputQueue's size.
+     */
+    public void sortByQueues() {
+        int numOfInputs = nodes.length;
 
         //Loop through n-1 times
         for (short num = 0; num < numOfInputs-1; num++) {
             
             for (short i = 0; i< numOfInputs-num-1; i++) {
-                if (nums[i] > nums[i+1]) {
-                    int temp = nums[i];
-                    nums[i] = nums[i+1];
-                    nums[i+1] = temp;
+                Gate currentNode = (Gate)nodes[i];
+                Gate nextNode = (Gate)nodes[i+1];
+
+                if (currentNode.largestQueueSize() > nextNode.largestQueueSize()) {
+                    nodes[i] = nodes[i+1];
+                    nodes[i+1] = currentNode;
                 }
-            }
-            System.out.println("num: " + num);
-            for (int n : nums) {
-                System.out.print(n + ", ");
             }
         }
     }

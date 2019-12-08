@@ -3,7 +3,7 @@ package app.tree;
 //import java.util.Scanner;
 
 /* Class BTNode */
-class BTNode {
+public class BTNode {
     public BTNode left, right;
     private int startValues, endValues;
     private Glitch glitch;
