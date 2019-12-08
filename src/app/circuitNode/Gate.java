@@ -1,7 +1,10 @@
 package app.circuitNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import app.Circuit;
-import app.linkedList.LinkedList;
+import app.linkedList.MyLinkedList;
 
 /**
  * Gate
@@ -10,6 +13,26 @@ public class Gate implements CircuitNode {
 
     // Gates have a left and right input (NOT only uses the leftInput)
     private final CircuitNode leftInput, rightInput;
+
+    // The type of gate
+    private final TYPE operator;
+
+    // All the times this gate TAKES PREVIOUS inputs. 
+    private MyLinkedList setOfDelays;
+
+    //TODO add support for changeing internal node
+    Queue<DelayUpdate> gettingDelays = new LinkedList<DelayUpdate>();
+    Queue<DelayUpdate> settingDelays = new LinkedList<DelayUpdate>();
+
+    // Internal node for gate
+    private boolean internalValue;
+
+    public Gate(final CircuitNode leftInput, final TYPE operator, final CircuitNode rightInput) {
+        this.leftInput = leftInput;
+        this.rightInput = rightInput;
+        this.operator = operator;
+        calcGateDelays();
+    }
 
     // Gate types and their delays
     public enum TYPE {
@@ -27,22 +50,23 @@ public class Gate implements CircuitNode {
         return 0;
     }
 
-    // The type of gate
-    private final TYPE operator;
+    private class DelayUpdate {
+        int inputTime, outputTime;
+        boolean internalNode = false;
 
-    // All the times this gate TAKES PREVIOUS inputs. 
-    private LinkedList setOfDelays;
+        public DelayUpdate(int inputTime, int gateDelay) {
+            this.inputTime = inputTime;
+            this.outputTime = this.inputTime+gateDelay;
+            internalNode = false;
+        }
 
-    //TODO add support for changeing internal node
+        public void setInternalNode(boolean inputValue) {
+            internalNode = inputValue;
+        }
 
-    // Internal node for gate
-    private boolean internalValue;
-
-    public Gate(final CircuitNode leftInput, final TYPE operator, final CircuitNode rightInput) {
-        this.leftInput = leftInput;
-        this.rightInput = rightInput;
-        this.operator = operator;
-        calcGateDelays();
+        public boolean getInternalNode() {
+            return internalNode;
+        }
     }
 
     @Override
@@ -51,7 +75,7 @@ public class Gate implements CircuitNode {
     }
 
     @Override
-    public LinkedList getDelays() {
+    public MyLinkedList getDelays() {
         return setOfDelays;
     }
 
@@ -79,7 +103,7 @@ public class Gate implements CircuitNode {
                 this.setOfDelays = this.leftInput.getDelays();
                 this.setOfDelays.addToEach(this.leftInput.getGateDelay());
             } else {
-                this.setOfDelays = LinkedList.sortWithOtherAdded(this.leftInput.getDelays(), this.leftInput.getGateDelay(), this.rightInput.getDelays(), this.rightInput.getGateDelay());
+                this.setOfDelays = MyLinkedList.sortWithOtherAdded(this.leftInput.getDelays(), this.leftInput.getGateDelay(), this.rightInput.getDelays(), this.rightInput.getGateDelay());
             }
             this.setOfDelays.RemoveDuplicates();
             System.out.println("Delays:");

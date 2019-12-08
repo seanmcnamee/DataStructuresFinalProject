@@ -1,7 +1,7 @@
 package app.circuitNode;
 
 import app.Circuit;
-import app.linkedList.LinkedList;
+import app.linkedList.MyLinkedList;
 import app.linkedList.LinkedListNode;
 
 /**
@@ -23,8 +23,8 @@ public class Data implements CircuitNode {
     /**
      * The delay directly from an input is 0
      */
-    public LinkedList getDelays() {
-        return new LinkedList(new LinkedListNode(0));
+    public MyLinkedList getDelays() {
+        return new MyLinkedList(new LinkedListNode(0));
     }
 
     @Override

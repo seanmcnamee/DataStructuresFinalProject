@@ -196,5 +196,9 @@ public class Circuit {
         return nodes;
     }
 
+    public int getNumOfInputs() {
+        return inputs.size();
+    }
+
     //TODO Sort Circuit by smallest delays
 }

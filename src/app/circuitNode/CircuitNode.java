@@ -1,12 +1,12 @@
 package app.circuitNode;
 
-import app.linkedList.LinkedList;
+import app.linkedList.MyLinkedList;
 
 /**
  * Node
  */
 public interface CircuitNode {
-    public LinkedList getDelays();
+    public MyLinkedList getDelays();
     public boolean getValue();
     public int getGateDelay();
     

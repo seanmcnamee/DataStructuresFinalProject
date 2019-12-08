@@ -3,14 +3,14 @@ package app.linkedList;
 /**
  * LinkedList
  */
-public class LinkedList {
+public class MyLinkedList {
     private LinkedListNode root;
 
-    public LinkedList() {
+    public MyLinkedList() {
         this(null);
     }
 
-    public LinkedList(LinkedListNode root) {
+    public MyLinkedList(LinkedListNode root) {
         this.root = root;
     }
 
@@ -26,7 +26,7 @@ public class LinkedList {
         return trav;
     }
 
-    public void addToFront(LinkedList otherList) {
+    public void addToFront(MyLinkedList otherList) {
         if (otherList.root != null) {
             otherList.getLastNode().setNext(this.root);
             this.root = otherList.root;
@@ -40,7 +40,7 @@ public class LinkedList {
         }
     }
 
-    public void addToBack(LinkedList otherList) {
+    public void addToBack(MyLinkedList otherList) {
         if (this.root == null) {
             this.root = otherList.root;
         }   else {
@@ -108,8 +108,8 @@ public class LinkedList {
      * @param other The other linekd list
      * @return A fully sorted array.
      */
-    public static LinkedList sortWithOtherAdded(LinkedList first, int firstDelay, LinkedList other, int otherDelay) {
-        LinkedList newList = new LinkedList();
+    public static MyLinkedList sortWithOtherAdded(MyLinkedList first, int firstDelay, MyLinkedList other, int otherDelay) {
+        MyLinkedList newList = new MyLinkedList();
         LinkedListNode t1 = first.root;
         LinkedListNode t2 = other.root;
 

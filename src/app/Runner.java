@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import app.circuitNode.Data;
 import app.circuitNode.Gate;
-import app.linkedList.LinkedList;
+import app.linkedList.MyLinkedList;
 import app.linkedList.LinkedListNode;
 import app.circuitNode.CircuitNode;
 import app.tree.BTree;
