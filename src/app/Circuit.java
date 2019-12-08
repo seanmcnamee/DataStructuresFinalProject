@@ -200,5 +200,30 @@ public class Circuit {
         return inputs.size();
     }
 
-    //TODO Sort Circuit by smallest delays
+    public boolean getCircuitOutput() {
+        return nodes[nodes.length-1].getValue();
+    }
+
+    //TODO Sort Circuit by smallest delays in the inputQueue (bubbleSort)
+    public void sortByInputQueues(int... nums) {
+        int numOfInputs = nums.length;
+
+        //Loop through n-1 times
+        for (short num = 0; num < numOfInputs-1; num++) {
+            
+            for (short i = 0; i< numOfInputs-num-1; i++) {
+                if (nums[i] > nums[i+1]) {
+                    int temp = nums[i];
+                    nums[i] = nums[i+1];
+                    nums[i+1] = temp;
+                }
+            }
+            System.out.println("num: " + num);
+            for (int n : nums) {
+                System.out.print(n + ", ");
+            }
+        }
+    }
+
+    
 }

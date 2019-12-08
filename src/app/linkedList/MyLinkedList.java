@@ -14,6 +14,10 @@ public class MyLinkedList {
         this.root = root;
     }
 
+    public LinkedListNode getRoot() {
+        return root;
+    }
+
     public LinkedListNode getLastNode() {
         LinkedListNode trav = root;
         if(trav == null) {
