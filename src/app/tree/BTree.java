@@ -50,12 +50,12 @@ public class BTree {
     }
 
     public int countGlitchNodes() {
+        System.out.println("Counting Glitches......");
         return countGlitchNodes(root);
     }
 
     private int countGlitchNodes(BTNode r) {
         if (r == null) {
-            System.out.println("Null node");
             return 0;
         }   else {
 
@@ -65,8 +65,8 @@ public class BTree {
                 System.out.println("\t\t\t\tGlitch from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd());
                 count = 1;
             }
-            count += countNodes(r.getLeft());
-            count += countNodes(r.getRight());
+            count += countGlitchNodes(r.getLeft());
+            count += countGlitchNodes(r.getRight());
             return count;
         }
     }
