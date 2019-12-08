@@ -94,6 +94,17 @@ public class Runner {
         System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
         System.out.println("Glitches: " + tree.countGlitchNodes());
 
+        //3
+        d.testStateChange(10101, 00001, tree);
+        System.out.println("...");
+        for (Character key : c.getInputs().keySet()) {
+            System.out.println(key + " - " + c.getInputs().get(key).getValue());
+        }
+        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
+        System.out.println("Glitches: " + tree.countGlitchNodes());
+
+        
+
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);
 

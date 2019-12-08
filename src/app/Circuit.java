@@ -227,7 +227,10 @@ public class Circuit {
     public void initializeGatesForCheck() {
         for (CircuitNode c : nodes) {
             Gate g = (Gate)c;
+            System.out.print("Initializing Queue for ");
+            System.out.println(c);
             g.initializeInputQueue();
+            System.out.println("\t" + g.queueLengths());
         }
     }
 

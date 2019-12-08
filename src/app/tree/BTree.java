@@ -54,10 +54,17 @@ public class BTree {
     }
 
     private int countGlitchNodes(BTNode r) {
-        if (r == null)
+        if (r == null) {
+            System.out.println("Null node");
             return 0;
-        else {
-            int count = (r.getGlitch() != null)? 1:0;
+        }   else {
+
+            int count = 0;
+            System.out.println("\t\t\t\tNode from " + r.getStartValues() + " to " + r.getEndValues());
+            if (r.getGlitch() != null) {
+                System.out.println("\t\t\t\tGlitch from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd());
+                count = 1;
+            }
             count += countNodes(r.getLeft());
             count += countNodes(r.getRight());
             return count;

@@ -51,13 +51,14 @@ public class Detector {
 
         int circuitEndTime = circuit.circuitEndTime();
         //While there's still more in the queue
-        while(circuitEndTime > time) {
+        while(circuitEndTime >= time) {
             //Update all gates for this time
             for (CircuitNode c : circuit.getNodes()) {
                 Gate g = (Gate)c;
                 
                 if (g.getNextOutputTime() == time) {
                     g.updateInternalAndRemove();
+                    System.out.println(" at time " + time);
                 }
                 if(g.getNextInputTime() == time) {
                     g.takeInputsAndTransfer();
@@ -67,8 +68,11 @@ public class Detector {
 
             //Check for output change
             if (circuit.getCircuitOutput() != outputValue) {
+                System.out.println("Change in output!");
+                System.out.println(circuit.getOutputGate() + " is " + circuit.getCircuitOutput());
                 outputValue = !outputValue;
                 outputChangeCount++;
+                System.out.println("Change count: " + outputChangeCount);
 
                 //Figure out earliest and latest output switch times
                 if (earliestSwitch == 0) {
@@ -81,8 +85,10 @@ public class Detector {
 
         BTNode transition;
         if (previousValue == circuit.getCircuitOutput() && outputChangeCount > 0) {
+            System.out.println("Glitch! //////////////////////////////////////////");
             transition = new BTNode(startState, nextState, earliestSwitch, latestSwitch);
         }   else {
+            System.out.println("ALL CLEAR, No Glitch! //////////////////////////////////////////");
             transition = new BTNode(startState, nextState, null);
         }
         

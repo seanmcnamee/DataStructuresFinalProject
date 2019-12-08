@@ -128,16 +128,14 @@ public class Gate implements CircuitNode {
     }
 
     public void takeInputsAndTransfer() {
-        System.out.print("Taking inputs for " + this);
         inputDelays.peek().setInternalNode(calcValue());
         outputDelays.add(inputDelays.remove());
-        System.out.println("And now the output length is " + outputDelays.size());
     }
 
     public void updateInternalAndRemove() {
-        System.out.print("Setting internal for: " + this + "//////////////////////////////////");
+        System.out.print("Node: " + this);
         this.internalValue = outputDelays.remove().getInternalNode();
-        System.out.println(" to " + this.internalValue);
+        System.out.print("Updates to " + this.internalValue);
     }
 
     public int largestQueueSize() {
@@ -146,22 +144,22 @@ public class Gate implements CircuitNode {
 
     public int getNextInputTime() { 
         if (inputDelays.size() > 0) {
-            System.out.println("\t\tInput > 0");
             return inputDelays.peek().getInputTime();
         }   else {
-            System.out.println("\t\tInput Queue is empty");
             return -1;
         }
     }
 
     public int getNextOutputTime() {
         if (outputDelays.size() > 0) {
-            System.out.println("\t\tOutput > 0");
             return outputDelays.peek().getOutputTime();
         }   else {
-            System.out.println("\t\tOutput Queue is empty");
             return -1;
         }
+    }
+
+    public String queueLengths() { 
+        return "input Length: " + inputDelays.size() + ", Output Length: " + outputDelays.size();
     }
 
 
