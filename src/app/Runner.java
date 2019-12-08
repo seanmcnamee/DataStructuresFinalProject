@@ -49,6 +49,7 @@ public class Runner {
         System.out.println("\nCircuit Pieces: ");
 
         for (CircuitNode s : c.getNodes()) {
+            System.out.println("Memeory Loc: " + s);
             if (s.getClass() == Data.class) {
                 System.out.println("A regular data point for some reason");
                 System.out.println(c.findKey(s));
@@ -64,11 +65,14 @@ public class Runner {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
 
+        System.out.println("Output Gate: " + c.getOutputGate());
+
         Detector d = new Detector(c);
         BTree tree = new BTree();
 
         
-        System.out.println(tree.countNodes());
+        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
+        System.out.println("Glitches: " + tree.countGlitchNodes());
 
 
         //1
@@ -77,7 +81,8 @@ public class Runner {
         for (Character key : c.getInputs().keySet()) {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
-        System.out.println(tree.countNodes());
+        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
+        System.out.println("Glitches: " + tree.countGlitchNodes());
 
 
         //2
@@ -86,7 +91,8 @@ public class Runner {
         for (Character key : c.getInputs().keySet()) {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
-        System.out.println(tree.countNodes());
+        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
+        System.out.println("Glitches: " + tree.countGlitchNodes());
 
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);

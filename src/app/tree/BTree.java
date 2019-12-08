@@ -49,6 +49,21 @@ public class BTree {
         }
     }
 
+    public int countGlitchNodes() {
+        return countGlitchNodes(root);
+    }
+
+    private int countGlitchNodes(BTNode r) {
+        if (r == null)
+            return 0;
+        else {
+            int count = (r.getGlitch() != null)? 1:0;
+            count += countNodes(r.getLeft());
+            count += countNodes(r.getRight());
+            return count;
+        }
+    }
+
     /* Function to search for an element */
     public boolean search(int valStart, int valEnd) {
         return search(root, valStart, valEnd);

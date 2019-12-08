@@ -18,7 +18,7 @@ public class Detector {
     public Detector(Circuit c) {
         circuit = c;
     }
-    
+
     public Detector(File f) {
         circuit = new Circuit(f);
     }
@@ -49,8 +49,9 @@ public class Detector {
         circuit.initializeGatesForCheck();
         circuit.sortByQueues();
 
+        int circuitEndTime = circuit.circuitEndTime();
         //While there's still more in the queue
-        while(circuit.largerOfLast() > time) {
+        while(circuitEndTime > time) {
             //Update all gates for this time
             for (CircuitNode c : circuit.getNodes()) {
                 Gate g = (Gate)c;
@@ -86,6 +87,11 @@ public class Detector {
         }
         
         glitchStates.insert(transition);
+
+        for (CircuitNode s : circuit.getNodes()) {
+            System.out.println(s);
+            System.out.println(s.getValue());
+        }
 
         return false;
     }

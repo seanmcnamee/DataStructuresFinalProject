@@ -25,6 +25,11 @@ public class Circuit {
     private CircuitNode[] nodes; //All the Important points inside the circuit
     private Hashtable<Character, Data> inputs = new Hashtable<Character, Data> (); //Maps Data to user's characters
     private int firstInput = Integer.MAX_VALUE; //Remembers ASCII of a-Most character
+    private Gate outputGate;
+
+    public Gate getOutputGate() {
+        return outputGate;
+    }
 
     // Take a file to produce circuit
     public Circuit(File path) {
@@ -139,6 +144,7 @@ public class Circuit {
             }
         }
 
+        outputGate = (Gate)this.nodes[this.nodes.length-1];
     }
     
     /**
@@ -206,12 +212,11 @@ public class Circuit {
     }
 
     public boolean getCircuitOutput() {
-        return nodes[nodes.length-1].getValue();
+        return outputGate.getValue();
     }
 
-    public int largerOfLast() {
-        Gate last = ((Gate)nodes[nodes.length-1]);
-        return Math.max(last.getNextInputTime(), last.getNextOutputTime());
+    public int circuitEndTime() {
+        return outputGate.getDelays().getLastNode().getData()+outputGate.getGateDelay();
     }
 
     
