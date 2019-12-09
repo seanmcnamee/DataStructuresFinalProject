@@ -38,7 +38,7 @@ public class Runner {
         //list[0].printList();
 
         
-        String test = "(((A*B)*C)+(D+E))";//"((A+B)*(A+C))";//
+        String test = "((A+B)+(B+C))";//"(((A*B)*C)+(D+E))";//"((A+B)*(A+C))";//
 
         Circuit c = new Circuit(test);
         System.out.println("Data inputs:");
@@ -65,6 +65,12 @@ public class Runner {
             System.out.println(key + " - " + c.getInputs().get(key).getValue());
         }
 
+        Detector d = new Detector(c);
+        d.testAllStateChanges();
+        System.out.println("Tree nodes: " + d.getTree().countNodes());
+        System.out.println("Glitch nodes: " + d.getTree().countGlitchNodes());
+
+        /*
         System.out.println("Output Gate: " + c.getOutputGate());
 
         Detector d = new Detector(c);
@@ -103,7 +109,7 @@ public class Runner {
         System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
         System.out.println("Glitches: " + tree.countGlitchNodes());
 
-        
+        */
 
         //byte[] test = {0, 0, 0, 0, 1};
         //System.out.println(test[4]);

@@ -60,9 +60,9 @@ public class BTree {
         }   else {
 
             int count = 0;
-            System.out.println("\t\t\t\tNode from " + r.getStartValues() + " to " + r.getEndValues());
+            //System.out.println("\t\t\t\tNode from " + r.getStartValues() + " to " + r.getEndValues());
             if (r.getGlitch() != null) {
-                System.out.println("\t\t\t\tGlitch from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd());
+                System.out.println("\t\t\t\tGlitch in " + r.getStartValues() + " to " + r.getEndValues() + " from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd());
                 count = 1;
             }
             count += countGlitchNodes(r.getLeft());
