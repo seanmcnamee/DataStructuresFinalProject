@@ -16,7 +16,7 @@ import app.linkedList.MyLinkedList;
  */
 public class Gate implements CircuitNode {
 
-    // Gates have a left and right input (NOT only uses the leftInput)
+    // Gates have a left and right input (NOT only uses the rightInput)
     private final CircuitNode leftInput, rightInput;
 
     // The type of gate
@@ -37,7 +37,7 @@ public class Gate implements CircuitNode {
         this.rightInput = rightInput;
         this.operator = operator;
         calcGateDelays();
-        if (this.leftInput != null) {
+        if (this.rightInput != null) {
             internalValue = calcValue();
         }
     }
@@ -68,7 +68,7 @@ public class Gate implements CircuitNode {
         } else if (this.operator == TYPE.OR) {
             newInternal = leftInput.getValue() || rightInput.getValue();
         } else if (this.operator == TYPE.NOT) {
-            newInternal = !leftInput.getValue();
+            newInternal = !rightInput.getValue();
         } else {
             System.out.println("Error in Gate.java with operator: " + this.operator);
             System.exit(-1);
@@ -84,9 +84,9 @@ public class Gate implements CircuitNode {
     private void calcGateDelays() {
         // Possible operator only gates
         if (this.leftInput != null || this.rightInput != null) {
-            if (this.rightInput == null) {
-                this.setOfDelays = this.leftInput.getDelays();
-                this.setOfDelays.addToEach(this.leftInput.getGateDelay());
+            if (this.leftInput == null) {
+                this.setOfDelays = this.rightInput.getDelays();
+                this.setOfDelays.addToEach(this.rightInput.getGateDelay());
             } else {
                 this.setOfDelays = MyLinkedList.sortWithOtherAdded(this.leftInput.getDelays(), this.leftInput.getGateDelay(), this.rightInput.getDelays(), this.rightInput.getGateDelay());
             }
@@ -193,7 +193,9 @@ public class Gate implements CircuitNode {
     }
 
     public String getLeftString(final Circuit c) {
-        if (this.leftInput.getClass() == Gate.class) {
+        if (this.leftInput == null) {
+            return "";
+        }   else if (this.leftInput.getClass() == Gate.class) {
             return "("+((Gate) this.leftInput).getGateString(c)+")";
         } else {
             return ((Data) this.leftInput).getString(c) + "";

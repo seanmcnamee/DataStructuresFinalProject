@@ -1,0 +1,85 @@
+Data inputs:
+A - app.circuitNode.Data@62043840
+C - app.circuitNode.Data@5315b42e
+B - app.circuitNode.Data@2ef9b8bc
+
+Circuit Gates:
+Memeory Loc: app.circuitNode.Gate@5d624da6	A+B
+	Input Delays: 0 
+Memeory Loc: app.circuitNode.Gate@1e67b872	~A
+	Input Delays: 0 
+Memeory Loc: app.circuitNode.Gate@60addb54	(~A)*C
+	Input Delays: 0 10 
+Memeory Loc: app.circuitNode.Gate@3f2a3a5	(A+B)+((~A)*C)
+	Input Delays: 20 25 35 
+
+State Changes:
+Current State: 0,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 1		output changes: 2
+	Glitch from 111 to 1
+Current State: 1,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 1		output changes: 2
+	Glitch from 110 to 1
+Current State: 1,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 4		output changes: 1
+Current State: 4,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 5		output changes: 1
+Current State: 5,	 Next State: 1		output changes: 2
+	Glitch from 101 to 1
+Current State: 1,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 1		output changes: 2
+	Glitch from 100 to 1
+Current State: 1,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 6		output changes: 1
+Current State: 6,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 7		output changes: 1
+Current State: 7,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 1		output changes: 2
+	Glitch from 10 to 1
+Current State: 1,	 Next State: 0		output changes: 1
+
+Glitches:
+	Glitch in 110 to 1 from 45 to 60
+	Glitch in 100 to 1 from 45 to 60
+	Glitch in 10 to 1 from 45 to 50
+	Glitch in 101 to 1 from 45 to 60
+	Glitch in 111 to 1 from 45 to 60
+	Total: 5

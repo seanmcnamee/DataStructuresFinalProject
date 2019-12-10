@@ -24,7 +24,7 @@ import app.circuitNode.CircuitNode;
 public class Circuit {
 
     public final char START = '(', END = ')', ADD = '+', MULT = '*', NOT = '~', MULTREPLACEMENT = (char)128;
-    private CircuitNode[] nodes; // All the Important points inside the circuit
+    private Gate[] nodes; // All the Important points inside the circuit
     private Hashtable<Character, Data> inputs = new Hashtable<Character, Data>(); // Maps Data to user's characters
     private int firstInput = Integer.MAX_VALUE; // Remembers ASCII of a-Most character
     private Gate outputGate;
@@ -55,7 +55,7 @@ public class Circuit {
     private void writeCircuit() {
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(getOutputFile(), true));
+            writer = new BufferedWriter(new FileWriter(getOutputFile()));
             writeData(writer);
             writeGates(writer);
             writer.close();
@@ -74,11 +74,11 @@ public class Circuit {
     private void writeGates(BufferedWriter writer) throws IOException {
         writer.append("\nCircuit Gates:\n");
 
-        for (CircuitNode s : nodes) {
+        for (Gate s : nodes) {
             writer.append("Memeory Loc: " + s);
             if (s.getClass() == Gate.class) {
-                writer.append("\t"+((Gate)s).getGateString(this)+"\n");
-                ((Gate)s).getDelays().printList(writer);
+                writer.append("\t"+s.getGateString(this)+"\n");
+                (s).getDelays().printList(writer);
             }
         }
 
@@ -132,7 +132,7 @@ public class Circuit {
     public void equationToCircuit(String equation) {
         int equationNum = 0;
         Stack<CircuitNode> terms = new Stack<CircuitNode>(); //Remember the order of how things are seen in the equation
-        this.nodes = new CircuitNode[countOperators(equation)]; //Each of the terms (will be sorted with timings)
+        this.nodes = new Gate[countOperators(equation)]; //Each of the terms (will be sorted with timings)
         int equationLength = equation.length();
 
         //Look at each part of the equation
@@ -181,7 +181,7 @@ public class Circuit {
             }
         }
 
-        outputGate = (Gate)this.nodes[this.nodes.length-1];
+        outputGate = this.nodes[this.nodes.length-1];
     }
     
     /**
@@ -207,20 +207,21 @@ public class Circuit {
      * @param equationNum the location in the array to place the new complete Gate
      */
     private void addElement(Stack<CircuitNode> terms, int equationNum) {
-        CircuitNode fullElement, term;
+        CircuitNode term;
+        Gate fullElement;
         term = terms.pop(); //Top element on the stack can be a Data or Gate.
         Gate operator = (Gate)terms.pop(); //Second element on the stack MUST be an Operator (partial Gate)
 
         //A NOT only requires one Data point. AND/OR require two
         if (operator.getOperator() == Gate.TYPE.NOT) {
-            fullElement = new Gate(term, operator.getOperator(), null);
+            fullElement = new Gate(null, operator.getOperator(), term);
         }   else {
             fullElement = new Gate(terms.pop(), operator.getOperator(), term);
         }
 
         //The fullElement might become an input to future Gates. Either way, store it into the array.
         terms.add(fullElement);
-        nodes[equationNum] = (fullElement);
+        nodes[equationNum] = fullElement;
     }
 
     /**
@@ -270,8 +271,7 @@ public class Circuit {
      * This is because the queues get used up throughout a check.
      */
     public void initializeGatesForCheck() {
-        for (CircuitNode c : nodes) {
-            Gate g = (Gate)c;
+        for (Gate g : nodes) {
             //System.out.print("Initializing Queue for ");
             //System.out.println(c);
             g.initializeInputQueue();
@@ -291,8 +291,8 @@ public class Circuit {
         for (short num = 0; num < numOfInputs-1; num++) {
             
             for (short i = 0; i< numOfInputs-num-1; i++) {
-                Gate currentNode = (Gate)nodes[i];
-                Gate nextNode = (Gate)nodes[i+1];
+                Gate currentNode = nodes[i];
+                Gate nextNode = nodes[i+1];
 
                 if (currentNode.largestQueueSize() > nextNode.largestQueueSize()) {
                     nodes[i] = nodes[i+1];

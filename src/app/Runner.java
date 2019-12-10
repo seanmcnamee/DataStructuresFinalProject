@@ -14,88 +14,12 @@ import app.tree.BTree;
 public class Runner {
     public static void main(String[] args) throws IOException {
 
-        /*
-        //Num of elements
-        int elements = 8, maxNum = 30;
-        LinkedList[] list = new LinkedList[elements];
-
-        for (int i = 0; i < elements; i++) {
-            list[i] = new LinkedList();
-            list[i].addToBack(new LinkedListNode((int)(Math.random()*maxNum)));
-            list[i].printList();
-            //list.addToBack(new LinkedListNode((int)(Math.random()*30)));
-        }
-
-        int power = 0;
-        while ((elements/(Math.pow(2, power))) >= 2) {
-            //System.out.println("From 0-" + (elements/(Math.pow(2, power))));
-            for (int i = 0; i < elements/(Math.pow(2, power)); i+=2) {
-                list[i/2] = LinkedList.sortWithOther(list[i], list[i+1]);
-                list[i/2].printList();
-            }
-            power++;
-        }
-        */
-
-        //list[0].printList();
-
         File circuitFile = new File("circuitFile.txt");
-
         Circuit c = new Circuit(circuitFile);
-
 
         Detector d = new Detector(c);
         d.testAllStateChanges();
-        //System.out.println("Tree nodes: " + d.getTree().countNodes());
-        //System.out.println("Glitch nodes: " + d.getTree().countGlitchNodes());
 
-        
-
-        /*
-        System.out.println("Output Gate: " + c.getOutputGate());
-
-        Detector d = new Detector(c);
-        BTree tree = new BTree();
-
-        
-        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
-        System.out.println("Glitches: " + tree.countGlitchNodes());
-
-
-        //1
-        d.testStateChange(00000, 11111, tree);
-        System.out.println("...");
-        for (Character key : c.getInputs().keySet()) {
-            System.out.println(key + " - " + c.getInputs().get(key).getValue());
-        }
-        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
-        System.out.println("Glitches: " + tree.countGlitchNodes());
-
-
-        //2
-        d.testStateChange(11111, 10101, tree);
-        System.out.println("...");
-        for (Character key : c.getInputs().keySet()) {
-            System.out.println(key + " - " + c.getInputs().get(key).getValue());
-        }
-        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
-        System.out.println("Glitches: " + tree.countGlitchNodes());
-
-        //3
-        d.testStateChange(10101, 00001, tree);
-        System.out.println("...");
-        for (Character key : c.getInputs().keySet()) {
-            System.out.println(key + " - " + c.getInputs().get(key).getValue());
-        }
-        System.out.println("Output: " + c.getCircuitOutput() + ", Nodes: " + tree.countNodes());
-        System.out.println("Glitches: " + tree.countGlitchNodes());
-
-        */
-
-        //byte[] test = {0, 0, 0, 0, 1};
-        //System.out.println(test[4]);
-
-        //Load in and create a circuit.
 
 
         /*
