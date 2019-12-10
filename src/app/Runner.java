@@ -1,6 +1,7 @@
 package app;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 import app.circuitNode.Data;
@@ -11,7 +12,7 @@ import app.circuitNode.CircuitNode;
 import app.tree.BTree;
 
 public class Runner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         /*
         //Num of elements
@@ -41,34 +42,12 @@ public class Runner {
         File circuitFile = new File("circuitFile.txt");
 
         Circuit c = new Circuit(circuitFile);
-        System.out.println("Data inputs:");
-        for (Character key : c.getInputs().keySet()) {
-            System.out.println(key + " - " + c.getInputs().get(key));
-        }
 
-        System.out.println("\nCircuit Pieces: ");
-
-        for (CircuitNode s : c.getNodes()) {
-            System.out.println("Memeory Loc: " + s);
-            if (s.getClass() == Data.class) {
-                System.out.println("A regular data point for some reason");
-                System.out.println(c.findKey(s));
-            }   else if (s.getClass() == Gate.class) {
-                System.out.println("Gate:");
-                System.out.println("\t"+((Gate)s).getGateString(c));
-                ((Gate)s).getDelays().printList();
-            }
-            
-        }   
-
-        for (Character key : c.getInputs().keySet()) {
-            System.out.println(key + " - " + c.getInputs().get(key).getValue());
-        }
 
         Detector d = new Detector(c);
         d.testAllStateChanges();
-        System.out.println("Tree nodes: " + d.getTree().countNodes());
-        System.out.println("Glitch nodes: " + d.getTree().countGlitchNodes());
+        //System.out.println("Tree nodes: " + d.getTree().countNodes());
+        //System.out.println("Glitch nodes: " + d.getTree().countGlitchNodes());
 
         
 

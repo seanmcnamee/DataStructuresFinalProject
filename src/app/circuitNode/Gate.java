@@ -91,10 +91,7 @@ public class Gate implements CircuitNode {
                 this.setOfDelays = MyLinkedList.sortWithOtherAdded(this.leftInput.getDelays(), this.leftInput.getGateDelay(), this.rightInput.getDelays(), this.rightInput.getGateDelay());
             }
             this.setOfDelays.RemoveDuplicates();
-            System.out.println("Delays:");
-            this.setOfDelays.printList();
-            //System.out.println("Adding " + getGateDelay() + " to each delay");
-            //this.setOfDelays.addToEach(getGateDelay());
+            //System.out.println("Delays:");
             //this.setOfDelays.printList();
         }
 
@@ -133,9 +130,9 @@ public class Gate implements CircuitNode {
     }
 
     public void updateInternalAndRemove() {
-        System.out.print("Node: " + this);
+        //System.out.print("Node: " + this);
         this.internalValue = outputDelays.remove().getInternalNode();
-        System.out.print("Updates to " + this.internalValue);
+        //System.out.print("Updates to " + this.internalValue);
     }
 
     public int largestQueueSize() {
@@ -192,7 +189,7 @@ public class Gate implements CircuitNode {
      */
 
     public String getGateString(final Circuit c) {
-        return  getLeftString(c) + getStringOperator() + getRightString(c);
+        return  getLeftString(c) + getStringOperator(c) + getRightString(c);
     }
 
     public String getLeftString(final Circuit c) {
@@ -213,14 +210,14 @@ public class Gate implements CircuitNode {
         }
     }
 
-    public Character getStringOperator() {
+    public Character getStringOperator(final Circuit c) {
         switch (this.operator) {
         case AND:
-            return '*';
+            return c.MULT;
         case OR:
-            return '+';
+            return c.ADD;
         case NOT:
-            return '~';
+            return c.NOT;
         default:
             System.out.println("Error! Wrong Operator in this GATE!");
             return '#';

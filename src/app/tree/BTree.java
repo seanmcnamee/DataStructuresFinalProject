@@ -1,5 +1,8 @@
 package app.tree;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 /* Class BT */
 public class BTree {
     private BTNode root;
@@ -20,7 +23,7 @@ public class BTree {
     }
 
     /* Function to insert data recursively */
-    //TODO FIX this garbage
+    // TODO FIX this garbage
     private BTNode insert(BTNode node, BTNode toInsert) {
         if (node == null)
             node = toInsert;
@@ -49,24 +52,42 @@ public class BTree {
         }
     }
 
-    public int countGlitchNodes() {
-        System.out.println("Counting Glitches......");
-        return countGlitchNodes(root);
+    public void writeGlitchNodes(BufferedWriter writer) throws IOException {
+        writer.append("\nGlitches:\n");
+        int count = countGlitchNodes(root, writer);
+        writer.append("\tTotal: " + count+"\n");
     }
 
-    private int countGlitchNodes(BTNode r) {
+    public int countGlitchNodes() throws IOException {
+        System.out.println("Counting Glitches......");
+        return countGlitchNodes(root, null);
+    }
+
+    /**
+     * Count in a preorder fashion
+     * 
+     * @param r
+     * @param writer
+     * @return
+     * @throws IOException
+     */
+    private int countGlitchNodes(BTNode r, BufferedWriter writer) throws IOException {
         if (r == null) {
             return 0;
         }   else {
-
             int count = 0;
             //System.out.println("\t\t\t\tNode from " + r.getStartValues() + " to " + r.getEndValues());
             if (r.getGlitch() != null) {
-                System.out.println("\t\t\t\tGlitch in " + r.getStartValues() + " to " + r.getEndValues() + " from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd());
+                String output = "\tGlitch in " + r.getStartValues() + " to " + r.getEndValues() + " from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd();
+                if (writer!= null) {
+                    writer.write(output+"\n");
+                }   else {
+                    System.out.println(output);
+                }
                 count = 1;
             }
-            count += countGlitchNodes(r.getLeft());
-            count += countGlitchNodes(r.getRight());
+            count += countGlitchNodes(r.getLeft(), writer);
+            count += countGlitchNodes(r.getRight(), writer);
             return count;
         }
     }

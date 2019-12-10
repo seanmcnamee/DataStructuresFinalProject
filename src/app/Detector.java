@@ -1,6 +1,9 @@
 package app;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -34,13 +37,18 @@ public class Detector {
     }
 
     /**
-     * After a lot of trying, we decided queues would be the best way to
-     * figure out every possible state change in a way where
-     * we never had to preload a state.
+     * After a lot of trying, we decided queues would be the best way to figure out
+     * every possible state change in a way where we never had to preload a state.
+     * 
+     * @throws IOException
      */
-    public void testAllStateChanges() {
-        //initialize array of queues
-        //A 2 input circuit has 4 possibilities. A 3 input circuit has 8
+    public void testAllStateChanges() throws IOException {
+        // initialize array of queues
+        // A 2 input circuit has 4 possibilities. A 3 input circuit has 8 (2^n)
+        BufferedWriter writer = null;
+        writer = new BufferedWriter(new FileWriter(circuit.getOutputFile(), true));
+        System.out.println("Information for this circuit in " + circuit.getOutputFile());
+
         int inputCount = circuit.getInputs().size();
         int largest = (int)Math.pow(2, inputCount);
         Queue<Integer>[] transitions = new LinkedList[largest];
@@ -53,26 +61,31 @@ public class Detector {
             }
         }
 
-        System.out.println("All the queues:");
+        //System.out.println("All the queues:");
         for (Queue<Integer> q : transitions) {
-            System.out.println("Queue next: " + q.size());
+            //System.out.println("Queue next: " + q.size());
         }
 
+        //initialize full circuit for all false
+        testStateChange(0, 0, null, null);
+
         //Loop through 2^n*((2^n)-1) = 2^2n - 2^n times
+        writer.append("State Changes:\n");
         int max = (int)(Math.pow(2, 2*inputCount)-Math.pow(2, inputCount));
         int count = 0;
         int currentState = 0;
         int nextState = 0;
         while (count < max) {
-            System.out.println("\t\t\t\t\t\t\t\t\t\tCount: " + count + ", max: " + max + ", inputCount: " + inputCount);
-            System.out.println("\t\t\t\t\t\t\t\t\t\tCurrent State: " + currentState);
             nextState = (currentState + transitions[currentState].remove()) % largest;
-            System.out.println("\t\t\t\t\t\t\t\t\t\tNext state: " + nextState);
-            testStateChange(toBase2(currentState), toBase2(nextState), tree);
+
+            writer.append("Current State: " + currentState + ",\t Next State: " + nextState);
+
+            testStateChange(toBase2(currentState), toBase2(nextState), tree, writer);
             currentState = nextState;
             count++;
         }
-
+        tree.writeGlitchNodes(writer);
+		writer.close();
     }
 
     private int toBase2(int n) {
@@ -84,14 +97,20 @@ public class Detector {
     }
 
     /**
-     * Will calculate the circuit values at every given time
-     * Assumes that the circuit is initialized with values
-     * @param startState base 2 number, where each 1 is true and each 0 is false for a specific output (ABCD corresponds to 0000)
-     * @param endState same layout as startState, but the change to this is what is observed
-     * @param glitchStates a tree representing all the transitions and if they have glitches
+     * Will calculate the circuit values at every given time Assumes that the
+     * circuit is initialized with values
+     * 
+     * @param startState   base 2 number, where each 1 is true and each 0 is false
+     *                     for a specific output (ABCD corresponds to 0000)
+     * @param endState     same layout as startState, but the change to this is what
+     *                     is observed
+     * @param glitchStates a tree representing all the transitions and if they have
+     *                     glitches
      * @return if the current state change resulted in a glitch
+     * @throws IOException
      */
-    public boolean testStateChange(int startState, int nextState, BTree glitchStates) {
+    public boolean testStateChange(int startState, int nextState, BTree glitchStates, BufferedWriter writer)
+            throws IOException {
         int time = 0; //The first possible time to take inputs would be 0
         boolean previousValue, outputValue;
         int earliestSwitch, latestSwitch;
@@ -113,7 +132,7 @@ public class Detector {
                 
                 if (g.getNextOutputTime() == time) {
                     g.updateInternalAndRemove();
-                    System.out.println(" at time " + time);
+                    //System.out.println(" at time " + time);
                 }
                 if(g.getNextInputTime() == time) {
                     g.takeInputsAndTransfer();
@@ -123,11 +142,16 @@ public class Detector {
 
             //Check for output change
             if (circuit.getCircuitOutput() != outputValue) {
-                System.out.println("Change in output!");
-                System.out.println(circuit.getOutputGate() + " is " + circuit.getCircuitOutput());
-                outputValue = !outputValue;
                 outputChangeCount++;
-                System.out.println("Change count: " + outputChangeCount);
+                if (writer != null) {
+                    /*
+                    writer.write("\tChange in output!\n");
+                    writer.write("\t" + circuit.getOutputGate() + " is " + circuit.getCircuitOutput()+"\n");
+                    writer.write("\tChange count: " + outputChangeCount+"\n");
+                    */
+                }
+                outputValue = !outputValue;
+                
 
                 //Figure out earliest and latest output switch times
                 if (earliestSwitch == 0) {
@@ -136,20 +160,26 @@ public class Detector {
                 latestSwitch = time;
             }
         }
-
+        
+        if(writer != null) {
+            writer.append("\t\toutput changes: " + outputChangeCount+"\n");
+        }
 
         BTNode transition;
-
         //Must be both because if an output oscillates but ends up changing, its okay
         if (previousValue == circuit.getCircuitOutput() && outputChangeCount >= 2) {
-            System.out.println("\n\nGlitch! ////////////////////////////////////////////////////////////////////////////\n\n");
+            if(writer != null) {
+                writer.append("\tGlitch from " + startState + " to " + nextState + "\n");
+            }
             transition = new BTNode(startState, nextState, earliestSwitch, latestSwitch);
         }   else {
-            System.out.println("ALL CLEAR, No Glitch!");
+            //System.out.println("ALL CLEAR, No Glitch!");
             transition = new BTNode(startState, nextState, null);
         }
         
-        glitchStates.insert(transition);
+        if (glitchStates!=null) {
+            glitchStates.insert(transition);
+        }
 
         /*
         for (CircuitNode s : circuit.getNodes()) {

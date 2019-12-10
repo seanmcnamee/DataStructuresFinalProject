@@ -1,5 +1,8 @@
 package app.linkedList;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 /**
  * LinkedList
  */
@@ -20,7 +23,7 @@ public class MyLinkedList {
 
     public LinkedListNode getLastNode() {
         LinkedListNode trav = root;
-        if(trav == null) {
+        if (trav == null) {
             return null;
         }
 
@@ -47,16 +50,15 @@ public class MyLinkedList {
     public void addToBack(MyLinkedList otherList) {
         if (this.root == null) {
             this.root = otherList.root;
-        }   else {
+        } else {
             getLastNode().setNext(otherList.root);
         }
     }
 
-
     public void addToBack(LinkedListNode newNode) {
         if (this.root == null) {
             this.root = newNode;
-        }   else {
+        } else {
             getLastNode().setNext(newNode);
         }
     }
@@ -66,9 +68,9 @@ public class MyLinkedList {
      */
     public void addToEach(int value) {
         LinkedListNode trav = root;
-        if(trav != null) {
+        if (trav != null) {
             while (trav != null) {
-                trav.setData(trav.getData()+value);
+                trav.setData(trav.getData() + value);
                 trav = trav.getNext();
             }
         }
@@ -79,9 +81,9 @@ public class MyLinkedList {
      */
     public void RemoveDuplicates() {
         LinkedListNode trav = root;
-        if(trav != null) {
+        if (trav != null) {
             while (trav.getNext() != null) {
-                if (trav.getData()==trav.getNext().getData()) {
+                if (trav.getData() == trav.getNext().getData()) {
                     trav.setNext(trav.getNext().getNext());
                     continue;
                 }
@@ -95,15 +97,29 @@ public class MyLinkedList {
      */
     public void printList() {
         LinkedListNode trav = root;
-        if(trav != null) {
-            while (trav!= null) {
+        if (trav != null) {
+            while (trav != null) {
                 System.out.print(trav.getData() + " ");
                 trav = trav.getNext();
             }
-        }   else {
+        } else {
             System.out.print("Empty");
         }
         System.out.println();
+    }
+
+    public void printList(BufferedWriter writer) throws IOException {
+        LinkedListNode trav = root;
+        if(trav != null) {
+            writer.append("\tInput Delays: ");
+            while (trav!= null) {
+                writer.append(trav.getData() + " ");
+                trav = trav.getNext();
+            }
+        }   else {
+            writer.append("\tEmpty List...");
+        }
+        writer.append("\n");
     }
 
     /**

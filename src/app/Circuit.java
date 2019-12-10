@@ -1,7 +1,10 @@
 package app;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Stack;
@@ -14,23 +17,18 @@ import app.circuitNode.CircuitNode;
  * 
  * Includes a Hashtable to easily manipulate Data inputs
  * 
- * //////Project Requirments////////
- * Represents a Circuit in terms of a Node (Gate and Data) Array.
- * Includes a BubbleSort to sort the nodes
- * Includes a Stack used when translating from a String equation to its representation
+ * //////Project Requirments//////// Represents a Circuit in terms of a Node
+ * (Gate and Data) Array. Includes a BubbleSort to sort the nodes Includes a
+ * Stack used when translating from a String equation to its representation
  */
 public class Circuit {
 
-    final char START = '(', END = ')', ADD = '+', MULT = '*', NOT = '~';
-    private CircuitNode[] nodes; //All the Important points inside the circuit
-    private Hashtable<Character, Data> inputs = new Hashtable<Character, Data> (); //Maps Data to user's characters
-    private int firstInput = Integer.MAX_VALUE; //Remembers ASCII of a-Most character
+    public final char START = '(', END = ')', ADD = '+', MULT = '*', NOT = '~', MULTREPLACEMENT = (char)128;
+    private CircuitNode[] nodes; // All the Important points inside the circuit
+    private Hashtable<Character, Data> inputs = new Hashtable<Character, Data>(); // Maps Data to user's characters
+    private int firstInput = Integer.MAX_VALUE; // Remembers ASCII of a-Most character
     private Gate outputGate;
     private String circuitName;
-
-    public Gate getOutputGate() {
-        return outputGate;
-    }
 
     // Take a file to produce circuit
     public Circuit(File path) {
@@ -40,6 +38,8 @@ public class Circuit {
             input = new Scanner(path);
             equation = input.nextLine();
             equationToCircuit(equation);
+            this.circuitName = equation.replace(MULT, MULTREPLACEMENT);
+            writeCircuit();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("BAD");
@@ -48,8 +48,43 @@ public class Circuit {
 
     public Circuit(String equation) {
         equationToCircuit(equation);
-        this.circuitName = equation;
+        this.circuitName = equation.replace(MULT, MULTREPLACEMENT);
+        writeCircuit();
     }
+
+    private void writeCircuit() {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(getOutputFile(), true));
+            writeData(writer);
+            writeGates(writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeData(BufferedWriter writer) throws IOException {
+        writer.write("Data inputs:\n");
+        for (Character key : inputs.keySet()) {
+            writer.append(key + " - " + inputs.get(key)+"\n");
+        }
+    }
+
+    private void writeGates(BufferedWriter writer) throws IOException {
+        writer.append("\nCircuit Gates:\n");
+
+        for (CircuitNode s : nodes) {
+            writer.append("Memeory Loc: " + s);
+            if (s.getClass() == Gate.class) {
+                writer.append("\t"+((Gate)s).getGateString(this)+"\n");
+                ((Gate)s).getDelays().printList(writer);
+            }
+        }
+
+        writer.append("\n");
+    }
+
 
 
     /**
@@ -102,40 +137,40 @@ public class Circuit {
 
         //Look at each part of the equation
         for (int i = 0; i < equationLength; i++) {
-            System.out.println("Equation: " + equation);
-            System.out.println("\tLocation: " + i + " < " + equationLength);
+            //System.out.println("Equation: " + equation);
+            //System.out.println("\tLocation: " + i + " < " + equationLength);
             char index = equation.charAt(i);
             switch(index) {
                 //A closing parenthasis, create a new Element (using operator and data point(s))
                 case START:
                     break;
                 case END: //Create a new (Node) Element, and update the position in the array 
-                    System.out.println("\tStacking Node");
+                    //System.out.println("\tStacking Node");
                     //Create new term
                     addElement(terms, equationNum);
                     equationNum++;
                     break;
                 case ADD: //Operator (AND/MULT/NOT), Add a full gate to the stack, but only the operator field
-                    System.out.println("\tStacking Operator +");
+                    //System.out.println("\tStacking Operator +");
                     terms.add(new Gate(null, Gate.TYPE.OR, null));
                     break;
                 case MULT:
-                    System.out.println("\tStacking Operator *");
+                    //System.out.println("\tStacking Operator *");
                     terms.add(new Gate(null, Gate.TYPE.AND, null));
                     break;
                 case NOT:
-                    System.out.println("\tStacking Operator ~");    
+                    //System.out.println("\tStacking Operator ~");    
                     terms.add(new Gate(null, Gate.TYPE.NOT, null));
                     break;
                 
                 default: //Regular input, add a Data to the stack.
-                    System.out.println("\tStacking Data " + index);
+                    //System.out.println("\tStacking Data " + index);
                     //Remembers the smallest input, and pairs each Data Input with the user's character key
                     if (inputs.containsKey(index)) {
-                        System.out.println("\t\tIt already exists");
+                        //System.out.println("\t\tIt already exists");
                         terms.add(inputs.get(index));
                     }   else { //Only add a mapping for new characters
-                        System.out.println("\t\tNew Data point");
+                        //System.out.println("\t\tNew Data point");
                         if ((int)index < firstInput) {
                             firstInput = (int)index;
                         }
@@ -213,6 +248,14 @@ public class Circuit {
         return inputs.size();
     }
 
+    public String getOutputFile() {
+        return circuitName+".txt";
+    }
+
+    public Gate getOutputGate() {
+        return outputGate;
+    }
+
     public boolean getCircuitOutput() {
         return outputGate.getValue();
     }
@@ -229,10 +272,10 @@ public class Circuit {
     public void initializeGatesForCheck() {
         for (CircuitNode c : nodes) {
             Gate g = (Gate)c;
-            System.out.print("Initializing Queue for ");
-            System.out.println(c);
+            //System.out.print("Initializing Queue for ");
+            //System.out.println(c);
             g.initializeInputQueue();
-            System.out.println("\t" + g.queueLengths());
+            //System.out.println("\t" + g.queueLengths());
         }
     }
 
