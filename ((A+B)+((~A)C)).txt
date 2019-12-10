@@ -77,9 +77,9 @@ Current State: 2,	 Next State: 1		output changes: 2
 Current State: 1,	 Next State: 0		output changes: 1
 
 Glitches:
-	Glitch in 110 to 1 from 45 to 60
-	Glitch in 100 to 1 from 45 to 60
-	Glitch in 10 to 1 from 45 to 50
-	Glitch in 101 to 1 from 45 to 60
-	Glitch in 111 to 1 from 45 to 60
+		Glitch in 110 to 1 from 45 to 60
+		Glitch in 100 to 1 from 45 to 60
+		Glitch in 10 to 1 from 45 to 50
+		Glitch in 101 to 1 from 45 to 60
+		Glitch in 111 to 1 from 45 to 60
 	Total: 5

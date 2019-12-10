@@ -16,9 +16,11 @@ public class Runner {
 
         File circuitFile = new File("circuitFile.txt");
         Circuit c = new Circuit(circuitFile);
-
         Detector d = new Detector(c);
-        d.testAllStateChanges();
+
+        Menu menu = new Menu(d);
+        menu.loopForInput();
+        
 
 
 

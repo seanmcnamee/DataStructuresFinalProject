@@ -1,0 +1,37 @@
+Data inputs:
+A - app.circuitNode.Data@327471b5
+B - app.circuitNode.Data@4157f54e
+
+Circuit Gates:
+Memeory Loc: app.circuitNode.Gate@90f6bfd	~A
+	Input Delays: 0 
+Memeory Loc: app.circuitNode.Gate@47f6473	(~A)*B
+	Input Delays: 0 10 
+Memeory Loc: app.circuitNode.Gate@15975490	A+((~A)*B)
+	Input Delays: 0 25 35 
+
+State Changes:
+Current State: 0,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 1		output changes: 2
+	Glitch from 11 to 1
+Current State: 1,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 1		output changes: 2
+	Glitch from 10 to 1
+Current State: 1,	 Next State: 0		output changes: 1
+
+Glitches:
+		Glitch in 110 to 1 from 45 to 60
+		Glitch in 100 to 1 from 45 to 60
+		Glitch in 10 to 1 from 45 to 50
+		Glitch in 10 to 1 from 25 to 60
+		Glitch in 11 to 1 from 25 to 60
+		Glitch in 101 to 1 from 45 to 60
+		Glitch in 111 to 1 from 45 to 60
+	Total: 7

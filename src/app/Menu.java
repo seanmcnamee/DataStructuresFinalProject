@@ -20,7 +20,7 @@ public class Menu {
     public void loopForInput() throws IOException {
         Scanner scan = new Scanner(System.in);
         System.out.println("---Circuit Glitch Finder---");
-        System.out.println("\tDefault circuit added: " + detector.getCircuit().getCircuitName());
+        System.out.println("\tDefault circuit added...");
         while (continueLoop) {
             listOptions();
             int selection = loopUntilValid(scan, 1, 7);
@@ -71,7 +71,9 @@ public class Menu {
                     System.out.println("\tNumber of State Changes: " + detector.getTree().countNodes());
                     break;
                 case 5://Print all tested State changes
+                    listPrintOrders();
                     int printType = loopUntilValid(scan, 1, 7);
+                    System.out.println("Ignoring left side 0's");
                     System.out.print("Displaying ");
                     switch(printType) {
                         case 1://Pre-Order
@@ -87,6 +89,7 @@ public class Menu {
                             detector.getTree().postorder();
                             break;
                         default:
+                            System.out.println("\tNone selected...");
                             break;
                     }
                     break;
@@ -100,6 +103,7 @@ public class Menu {
                     break;
             }
         }
+        System.out.println("Thank you for using the Circuit Glitch Finder");
     }
 
     private int loopUntilValid(Scanner scan, int lowValid, int highValid) {
@@ -113,14 +117,16 @@ public class Menu {
     }
 
     private void listOptions() {
+        System.out.println("Current Circuit: " + detector.getCircuit().getCircuitName());
         System.out.println("\nOptions:");
-        System.out.println("\t1. Change Circuit");
-        System.out.println("\t2. Test single State Change");
-        System.out.println("\t3. Test all possible State Changes");
-        System.out.println("\t4. Count all tested State changes");
-        System.out.println("\t5. Print all tested State changes");
-        System.out.println("\t6. Display and Count all tested glitch State changes");
-        System.out.println("\t7. Search for a tested State Change");
+        System.out.println("\t-1. Exit");
+        System.out.println("\t 1. Change Circuit");
+        System.out.println("\t 2. Test single State Change");
+        System.out.println("\t 3. Test all possible State Changes");
+        System.out.println("\t 4. Count all tested State changes");
+        System.out.println("\t 5. Print all tested State changes");
+        System.out.println("\t 6. Display and Count all tested glitch State changes");
+        System.out.println("\t 7. Search for a tested State Change");
     }
 
     private void explainCircuit() {

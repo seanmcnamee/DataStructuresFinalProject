@@ -98,6 +98,9 @@ public class BTree {
 
     /* Function to search for an element recursively */
     private BTNode search(BTNode r, int start, int end) {
+        if (r==null) {
+            return null;
+        }
         if (r.getStartValues() == start && r.getEndValues() == end)
             return r;
         if (r.getLeft() != null)
@@ -115,7 +118,7 @@ public class BTree {
     private void inorder(BTNode r) {
         if (r != null) {
             inorder(r.getLeft());
-            System.out.print(r.getStartValues() + "-" + r.getEndValues()+" ");
+            System.out.println(r.getStartValues() + "-" + r.getEndValues());
             inorder(r.getRight());
         }
     }
@@ -127,7 +130,7 @@ public class BTree {
 
     private void preorder(BTNode r) {
         if (r != null) {
-            System.out.print(r.getStartValues() + "-" + r.getEndValues()+" ");
+            System.out.println(r.getStartValues() + "-" + r.getEndValues());
             preorder(r.getLeft());
             preorder(r.getRight());
         }
@@ -142,7 +145,7 @@ public class BTree {
         if (r != null) {
             postorder(r.getLeft());
             postorder(r.getRight());
-            System.out.print(r.getStartValues() + "-" + r.getEndValues()+" ");
+            System.out.println(r.getStartValues() + "-" + r.getEndValues());
         }
     }
 }

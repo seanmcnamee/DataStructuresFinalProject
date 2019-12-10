@@ -55,7 +55,7 @@ public class Detector {
         // A 2 input circuit has 4 possibilities. A 3 input circuit has 8 (2^n)
         BufferedWriter writer = null;
         writer = new BufferedWriter(new FileWriter(circuit.getOutputFile(), true));
-        System.out.println("Information for this circuit in " + circuit.getOutputFile());
+        //System.out.println("Information for this circuit in " + circuit.getOutputFile());
 
         int inputCount = circuit.getInputs().size();
         int largest = (int)Math.pow(2, inputCount);
