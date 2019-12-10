@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 import java.util.Scanner;
 
 import app.circuitNode.Data;
@@ -37,10 +38,9 @@ public class Runner {
 
         //list[0].printList();
 
-        
-        String test = "((A+B)+(B+C))";//"(((A*B)*C)+(D+E))";//"((A+B)*(A+C))";//
+        File circuitFile = new File("circuitFile.txt");
 
-        Circuit c = new Circuit(test);
+        Circuit c = new Circuit(circuitFile);
         System.out.println("Data inputs:");
         for (Character key : c.getInputs().keySet()) {
             System.out.println(key + " - " + c.getInputs().get(key));
@@ -69,6 +69,8 @@ public class Runner {
         d.testAllStateChanges();
         System.out.println("Tree nodes: " + d.getTree().countNodes());
         System.out.println("Glitch nodes: " + d.getTree().countGlitchNodes());
+
+        
 
         /*
         System.out.println("Output Gate: " + c.getOutputGate());

@@ -26,6 +26,7 @@ public class Circuit {
     private Hashtable<Character, Data> inputs = new Hashtable<Character, Data> (); //Maps Data to user's characters
     private int firstInput = Integer.MAX_VALUE; //Remembers ASCII of a-Most character
     private Gate outputGate;
+    private String circuitName;
 
     public Gate getOutputGate() {
         return outputGate;
@@ -47,6 +48,7 @@ public class Circuit {
 
     public Circuit(String equation) {
         equationToCircuit(equation);
+        this.circuitName = equation;
     }
 
 
@@ -256,6 +258,4 @@ public class Circuit {
             }
         }
     }
-
-    
 }
