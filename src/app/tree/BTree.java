@@ -65,7 +65,6 @@ public class BTree {
 
     /**
      * Count in a preorder fashion
-     * 
      * @param r
      * @param writer
      * @return
@@ -78,7 +77,7 @@ public class BTree {
             int count = 0;
             //System.out.println("\t\t\t\tNode from " + r.getStartValues() + " to " + r.getEndValues());
             if (r.getGlitch() != null) {
-                String output = "\tGlitch in " + r.getStartValues() + " to " + r.getEndValues() + " from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd();
+                String output = "\t\tGlitch in " + r.getStartValues() + " to " + r.getEndValues() + " from " + r.getGlitch().getStart() + " to " + r.getGlitch().getEnd();
                 if (writer!= null) {
                     writer.write(output+"\n");
                 }   else {
@@ -93,19 +92,19 @@ public class BTree {
     }
 
     /* Function to search for an element */
-    public boolean search(int valStart, int valEnd) {
+    public BTNode search(int valStart, int valEnd) {
         return search(root, valStart, valEnd);
     }
 
     /* Function to search for an element recursively */
-    private boolean search(BTNode r, int start, int end) {
+    private BTNode search(BTNode r, int start, int end) {
         if (r.getStartValues() == start && r.getEndValues() == end)
-            return true;
+            return r;
         if (r.getLeft() != null)
             return search(r.getLeft(), start, end);
         if (r.getRight() != null)
             return search(r.getRight(), start, end);
-        return false;
+        return null;
     }
 
     /* Function for inorder traversal */

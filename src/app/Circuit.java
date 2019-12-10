@@ -249,6 +249,10 @@ public class Circuit {
         return inputs.size();
     }
 
+    public String getCircuitName() {
+        return circuitName;
+    }
+    
     public String getOutputFile() {
         return circuitName+".txt";
     }

@@ -36,6 +36,14 @@ public class Detector {
         tree = new BTree();
     }
 
+    public void setCircuit(Circuit c) {
+        this.circuit = c;
+    }
+
+    public Circuit getCircuit() {
+        return this.circuit;
+    }
+
     /**
      * After a lot of trying, we decided queues would be the best way to figure out
      * every possible state change in a way where we never had to preload a state.
@@ -143,16 +151,8 @@ public class Detector {
             //Check for output change
             if (circuit.getCircuitOutput() != outputValue) {
                 outputChangeCount++;
-                if (writer != null) {
-                    /*
-                    writer.write("\tChange in output!\n");
-                    writer.write("\t" + circuit.getOutputGate() + " is " + circuit.getCircuitOutput()+"\n");
-                    writer.write("\tChange count: " + outputChangeCount+"\n");
-                    */
-                }
                 outputValue = !outputValue;
                 
-
                 //Figure out earliest and latest output switch times
                 if (earliestSwitch == 0) {
                     earliestSwitch = time;
