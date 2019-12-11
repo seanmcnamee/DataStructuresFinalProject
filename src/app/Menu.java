@@ -51,7 +51,7 @@ public class Menu {
                         System.out.println("\tGlitch: " + isGlitch);
                     }   else { //7
                         BTNode node = detector.getTree().search(startState, nextState);
-                        if (node!= null) {
+                        if (node != null) {
                             System.out.println("\tNode from " + strStartState + " to " + strNextState + ":");
                             if (node.getGlitch() != null) {
                                 System.out.println("\t\tGlitch from t=" + node.getGlitch().getStart() + " to " + node.getGlitch().getEnd());

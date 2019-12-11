@@ -1,0 +1,24 @@
+Data inputs:
+A - app.circuitNode.Data@6fb554cc
+B - app.circuitNode.Data@614c5515
+
+Circuit Gates:
+Memeory Loc: app.circuitNode.Gate@77b52d12	A+B
+	Input Delays: 0 
+
+State Changes:
+Current State: 0,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 0		output changes: 1
+
+Glitches:
+	Total: 0

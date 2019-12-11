@@ -19,11 +19,12 @@ public class BTree {
 
     /* Functions to insert data */
     public void insert(BTNode nodeToInsert) {
-        root = insert(root, nodeToInsert);
+        root = orderedInsert(root, nodeToInsert);
     }
 
     /* Function to insert data recursively */
     // TODO FIX this garbage
+    /*
     private BTNode insert(BTNode node, BTNode toInsert) {
         if (node == null)
             node = toInsert;
@@ -33,6 +34,24 @@ public class BTree {
             node.left = insert(node.left, toInsert);
         }
         return node;
+    }
+    */
+    
+
+    //Returns 
+    private BTNode orderedInsert(BTNode node, BTNode toInsert) {
+        if (node==null) {
+            node = toInsert;
+        }   else if(larger(toInsert, node)) { //Must go to the right
+            node.right = orderedInsert(node.right, toInsert);
+        }   else {
+            node.left = orderedInsert(node.left, toInsert);
+        }
+        return node;
+    }
+
+    private boolean larger(BTNode node1, BTNode node2) {
+        return node1.getStartValues()>node2.getStartValues() || (node1.getStartValues()==node2.getStartValues()&&node1.getEndValues()>node2.getEndValues());
     }
 
     /* Function to count number of nodes */
@@ -98,15 +117,25 @@ public class BTree {
 
     /* Function to search for an element recursively */
     private BTNode search(BTNode r, int start, int end) {
+        BTNode node;
         if (r==null) {
             return null;
         }
+        //System.out.println("This node is from " + );
         if (r.getStartValues() == start && r.getEndValues() == end)
             return r;
-        if (r.getLeft() != null)
-            return search(r.getLeft(), start, end);
-        if (r.getRight() != null)
-            return search(r.getRight(), start, end);
+        if (r.getLeft() != null) {
+            node = search(r.getLeft(), start, end);
+            if (node!= null) {
+                return node;
+            }
+        }
+        if (r.getRight() != null) {
+            node = search(r.getRight(), start, end);
+            if (node != null) {
+                return node;
+            }
+        }
         return null;
     }
 
