@@ -106,7 +106,6 @@ public class BTree {
     /*  Assumes a Binary Search Tree
     */
     private BTNode search(BTNode r, int start, int end) {
-        BTNode node;
         if (r==null) {
             return null;
         }
