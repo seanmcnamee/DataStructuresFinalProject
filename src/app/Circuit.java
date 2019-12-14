@@ -52,6 +52,7 @@ public class Circuit {
         writeCircuit();
     }
 
+    //For the file that the user can read...
     private void writeCircuit() {
         BufferedWriter writer = null;
         try {
@@ -64,6 +65,7 @@ public class Circuit {
         }
     }
 
+    //Explains Data input info
     private void writeData(BufferedWriter writer) throws IOException {
         writer.write("Data inputs:\n");
         for (Character key : inputs.keySet()) {
@@ -71,6 +73,7 @@ public class Circuit {
         }
     }
 
+    //Explains all the gates of the circuit
     private void writeGates(BufferedWriter writer) throws IOException {
         writer.append("\nCircuit Gates:\n");
 
@@ -276,14 +279,9 @@ public class Circuit {
      */
     public void initializeGatesForCheck() {
         for (Gate g : nodes) {
-            //System.out.print("Initializing Queue for ");
-            //System.out.println(c);
             g.initializeInputQueue();
-            //System.out.println("\t" + g.queueLengths());
         }
     }
-
-
 
     /**
      * Bubble sort based on the largest of the InputQueue and OutputQueue's size.
@@ -293,7 +291,7 @@ public class Circuit {
 
         //Loop through n-1 times
         for (short num = 0; num < numOfInputs-1; num++) {
-            
+            //Loop until the rest of the array is sorted
             for (short i = 0; i< numOfInputs-num-1; i++) {
                 Gate currentNode = nodes[i];
                 Gate nextNode = nodes[i+1];

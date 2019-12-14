@@ -106,6 +106,7 @@ public class Menu {
         System.out.println("Thank you for using the Circuit Glitch Finder");
     }
 
+    //Error trap for a valid number input
     private int loopUntilValid(Scanner scan, int lowValid, int highValid) {
         int ans = 0;
         do {

@@ -28,6 +28,7 @@ public class Data implements CircuitNode {
     }
 
     @Override
+    //Data inputs change instantaneously
     public int getGateDelay() {
         return 0;
     }

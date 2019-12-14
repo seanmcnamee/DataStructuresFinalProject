@@ -55,31 +55,24 @@ public class Detector {
         // A 2 input circuit has 4 possibilities. A 3 input circuit has 8 (2^n)
         BufferedWriter writer = null;
         writer = new BufferedWriter(new FileWriter(circuit.getOutputFile(), true));
-        //System.out.println("Information for this circuit in " + circuit.getOutputFile());
 
         int inputCount = circuit.getInputs().size();
-        int largest = (int)Math.pow(2, inputCount);
+        int largest = (int) Math.pow(2, inputCount);
         Queue<Integer>[] transitions = new LinkedList[largest];
 
-        //each queue will have numbers from 1-Math.pow(2, n)-1
+        // each queue will have numbers from 1-Math.pow(2, n)-1
         for (int i = 0; i < transitions.length; i++) {
             transitions[i] = new LinkedList<Integer>();
             for (int t = 1; t < largest; t++) {
                 transitions[i].add(t);
             }
         }
-
-        //System.out.println("All the queues:");
-        for (Queue<Integer> q : transitions) {
-            //System.out.println("Queue next: " + q.size());
-        }
-
-        //initialize full circuit for all false
+        // initialize full circuit for all false
         testStateChange(0, 0, null, null);
 
-        //Loop through 2^n*((2^n)-1) = 2^2n - 2^n times
+        // Loop through 2^n*((2^n)-1) = 2^2n - 2^n times
         writer.append("State Changes:\n");
-        int max = (int)(Math.pow(2, 2*inputCount)-Math.pow(2, inputCount));
+        int max = (int) (Math.pow(2, 2 * inputCount) - Math.pow(2, inputCount));
         int count = 0;
         int currentState = 0;
         int nextState = 0;
@@ -93,7 +86,7 @@ public class Detector {
             count++;
         }
         tree.writeGlitchNodes(writer);
-		writer.close();
+        writer.close();
     }
 
     private int toBase2(int n) {
@@ -119,76 +112,69 @@ public class Detector {
      */
     public boolean testStateChange(int startState, int nextState, BTree glitchStates, BufferedWriter writer)
             throws IOException {
-        int time = 0; //The first possible time to take inputs would be 0
+        int time = 0; // The first possible time to take inputs would be 0
         boolean previousValue, outputValue;
         int earliestSwitch, latestSwitch;
         int outputChangeCount = 0;
         previousValue = outputValue = circuit.getCircuitOutput();
         earliestSwitch = latestSwitch = 0;
-        
-        //Set initial outputValue (from nextState)
+
+        // Set initial outputValue (from nextState)
         circuit.setInputs(nextState);
         circuit.initializeGatesForCheck();
         circuit.sortByQueues();
 
         int circuitEndTime = circuit.circuitEndTime();
-        //While there's still more in the queue
-        while(circuitEndTime >= time) {
-            //Update all gates for this time
+        // While there's still more in the queue
+        while (circuitEndTime >= time) {
+            // Update all gates for this time
             for (CircuitNode c : circuit.getNodes()) {
-                Gate g = (Gate)c;
-                
+                Gate g = (Gate) c;
+
                 if (g.getNextOutputTime() == time) {
                     g.updateInternalAndRemove();
-                    //System.out.println(" at time " + time);
+                    // System.out.println(" at time " + time);
                 }
-                if(g.getNextInputTime() == time) {
+                if (g.getNextInputTime() == time) {
                     g.takeInputsAndTransfer();
                 }
             }
             time += 5;
 
-            //Check for output change
+            // Check for output change
             if (circuit.getCircuitOutput() != outputValue) {
                 outputChangeCount++;
                 outputValue = !outputValue;
-                
-                //Figure out earliest and latest output switch times
+
+                // Figure out earliest and latest output switch times
                 if (earliestSwitch == 0) {
                     earliestSwitch = time;
                 }
                 latestSwitch = time;
             }
         }
-        
-        if(writer != null) {
-            writer.append("\t\toutput changes: " + outputChangeCount+"\n");
+
+        if (writer != null) {
+            writer.append("\t\toutput changes: " + outputChangeCount + "\n");
         }
 
         BTNode transition;
-        //Must be both because if an output oscillates but ends up changing, its okay
+        // Must be both because if an output oscillates but ends up changing, its okay
         if (previousValue == circuit.getCircuitOutput() && outputChangeCount >= 2) {
-            if(writer != null) {
+            if (writer != null) {
                 writer.append("\tGlitch from " + startState + " to " + nextState + "\n");
             }
             transition = new BTNode(startState, nextState, earliestSwitch, latestSwitch);
-        }   else {
-            //System.out.println("ALL CLEAR, No Glitch!");
+        } else {
+            // System.out.println("ALL CLEAR, No Glitch!");
             transition = new BTNode(startState, nextState, null);
         }
-        
-        if (glitchStates!=null) {
+
+        if (glitchStates != null) {
             glitchStates.insert(transition);
         }
 
-        /*
-        for (CircuitNode s : circuit.getNodes()) {
-            System.out.println(s);
-            System.out.println(s.getValue());
-        }
-        */
-
-        //Lets the calling function know if this test case was a glitch
-        return (transition.getGlitch()!=null);
+        // Lets the calling function know if this test case was a glitch
+        return (transition.getGlitch() != null);
     }
 }

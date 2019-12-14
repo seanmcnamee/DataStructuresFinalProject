@@ -3,7 +3,8 @@ package app.tree;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-/* Class BT */
+/* Class BT 
+This ends up being a Binary Search Tree because of the orderedInsert Method*/
 public class BTree {
     private BTNode root;
 
@@ -21,24 +22,10 @@ public class BTree {
     public void insert(BTNode nodeToInsert) {
         root = orderedInsert(root, nodeToInsert);
     }
-
-    /* Function to insert data recursively */
-    // TODO FIX this garbage
-    /*
-    private BTNode insert(BTNode node, BTNode toInsert) {
-        if (node == null)
-            node = toInsert;
-        else if (node.getRight() == null) {
-            node.right = insert(node.right, toInsert);
-        } else {
-            node.left = insert(node.left, toInsert);
-        }
-        return node;
-    }
-    */
     
 
-    //Returns 
+    //Returns the Node after inserting the Node in order
+    //Makes this a binary search tree
     private BTNode orderedInsert(BTNode node, BTNode toInsert) {
         if (node==null) {
             node = toInsert;
@@ -115,28 +102,25 @@ public class BTree {
         return search(root, valStart, valEnd);
     }
 
-    /* Function to search for an element recursively */
+    /** Function to search for an element recursively
+    /*  Assumes a Binary Search Tree
+    */
     private BTNode search(BTNode r, int start, int end) {
         BTNode node;
         if (r==null) {
             return null;
         }
-        //System.out.println("This node is from " + );
-        if (r.getStartValues() == start && r.getEndValues() == end)
+        
+        //else if(larger(toInsert, node)) { //Must go to the right
+        if (r.getStartValues() == start && r.getEndValues() == end) {
             return r;
-        if (r.getLeft() != null) {
-            node = search(r.getLeft(), start, end);
-            if (node!= null) {
-                return node;
-            }
         }
-        if (r.getRight() != null) {
-            node = search(r.getRight(), start, end);
-            if (node != null) {
-                return node;
-            }
+            
+        if (larger(new BTNode(start, end, null), r)) {
+            return search(r.getRight(), start, end);
+        }   else {
+            return search(r.getLeft(), start, end);
         }
-        return null;
     }
 
     /* Function for inorder traversal */
@@ -178,4 +162,3 @@ public class BTree {
         }
     }
 }
-/* Class BinaryTree */

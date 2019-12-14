@@ -33,36 +33,6 @@ public class MyLinkedList {
         return trav;
     }
 
-    public void addToFront(MyLinkedList otherList) {
-        if (otherList.root != null) {
-            otherList.getLastNode().setNext(this.root);
-            this.root = otherList.root;
-        }
-    }
-
-    public void addToFront(LinkedListNode newNode) {
-        if (newNode != null) {
-            newNode.setNext(this.root);
-            this.root = newNode;
-        }
-    }
-
-    public void addToBack(MyLinkedList otherList) {
-        if (this.root == null) {
-            this.root = otherList.root;
-        } else {
-            getLastNode().setNext(otherList.root);
-        }
-    }
-
-    public void addToBack(LinkedListNode newNode) {
-        if (this.root == null) {
-            this.root = newNode;
-        } else {
-            getLastNode().setNext(newNode);
-        }
-    }
-
     /**
      * Used to have a gate's delay add on to each of it's input's delays.
      */
@@ -90,22 +60,6 @@ public class MyLinkedList {
                 trav = trav.getNext();
             }
         }
-    }
-
-    /**
-     * Used mostly for console logging of the entire linked list
-     */
-    public void printList() {
-        LinkedListNode trav = root;
-        if (trav != null) {
-            while (trav != null) {
-                System.out.print(trav.getData() + " ");
-                trav = trav.getNext();
-            }
-        } else {
-            System.out.print("Empty");
-        }
-        System.out.println();
     }
 
     public void printList(BufferedWriter writer) throws IOException {
@@ -154,5 +108,13 @@ public class MyLinkedList {
             t1 = t1.getNext();
         }
         return newList;
+    }
+
+    private void addToBack(LinkedListNode newNode) {
+        if (this.root == null) {
+            this.root = newNode;
+        } else {
+            getLastNode().setNext(newNode);
+        }
     }
 }

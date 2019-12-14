@@ -1,16 +1,16 @@
 Data inputs:
-A - app.circuitNode.Data@180bc464
-C - app.circuitNode.Data@1324409e
-B - app.circuitNode.Data@2c6a3f77
+A - app.circuitNode.Data@62043840
+C - app.circuitNode.Data@5315b42e
+B - app.circuitNode.Data@2ef9b8bc
 
 Circuit Gates:
-Memeory Loc: app.circuitNode.Gate@246ae04d	A+B
+Memeory Loc: app.circuitNode.Gate@5d624da6	A+B
 	Input Delays: 0 
-Memeory Loc: app.circuitNode.Gate@62043840	~A
+Memeory Loc: app.circuitNode.Gate@1e67b872	~A
 	Input Delays: 0 
-Memeory Loc: app.circuitNode.Gate@5315b42e	(~A)*C
+Memeory Loc: app.circuitNode.Gate@60addb54	(~A)*C
 	Input Delays: 0 10 
-Memeory Loc: app.circuitNode.Gate@2ef9b8bc	(A+B)+((~A)*C)
+Memeory Loc: app.circuitNode.Gate@3f2a3a5	(A+B)+((~A)*C)
 	Input Delays: 20 25 35 
 
 State Changes:
