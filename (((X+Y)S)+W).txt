@@ -1,0 +1,294 @@
+Data inputs:
+W - app.circuitNode.Data@68837a77
+S - app.circuitNode.Data@6be46e8f
+Y - app.circuitNode.Data@3567135c
+X - app.circuitNode.Data@327471b5
+
+Circuit Gates:
+Memeory Loc: app.circuitNode.Gate@4157f54e	X+Y
+	Input Delays: 0 
+Memeory Loc: app.circuitNode.Gate@90f6bfd	(X+Y)*S
+	Input Delays: 0 20 
+Memeory Loc: app.circuitNode.Gate@47f6473	((X+Y)*S)+W
+	Input Delays: 0 25 45 
+
+State Changes:
+Current State: 0,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 4		output changes: 1
+Current State: 4,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 8		output changes: 3
+Current State: 8,	 Next State: 9		output changes: 1
+Current State: 9,	 Next State: 10		output changes: 0
+Current State: 10,	 Next State: 11		output changes: 0
+Current State: 11,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 4		output changes: 1
+Current State: 4,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 8		output changes: 3
+Current State: 8,	 Next State: 10		output changes: 1
+Current State: 10,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 5		output changes: 1
+Current State: 5,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 9		output changes: 2
+	Glitch from 111 to 1001
+Current State: 9,	 Next State: 11		output changes: 0
+Current State: 11,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 6		output changes: 1
+Current State: 6,	 Next State: 9		output changes: 2
+	Glitch from 110 to 1001
+Current State: 9,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 5		output changes: 1
+Current State: 5,	 Next State: 8		output changes: 3
+Current State: 8,	 Next State: 11		output changes: 1
+Current State: 11,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 4		output changes: 1
+Current State: 4,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 10		output changes: 2
+	Glitch from 111 to 1010
+Current State: 10,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 4		output changes: 1
+Current State: 4,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 12		output changes: 1
+Current State: 12,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 5		output changes: 1
+Current State: 5,	 Next State: 9		output changes: 2
+	Glitch from 101 to 1001
+Current State: 9,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 5		output changes: 1
+Current State: 5,	 Next State: 10		output changes: 2
+	Glitch from 101 to 1010
+Current State: 10,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 6		output changes: 1
+Current State: 6,	 Next State: 10		output changes: 2
+	Glitch from 110 to 1010
+Current State: 10,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 7		output changes: 1
+Current State: 7,	 Next State: 11		output changes: 2
+	Glitch from 111 to 1011
+Current State: 11,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 9		output changes: 2
+	Glitch from 100 to 1001
+Current State: 9,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 8		output changes: 2
+	Glitch from 11 to 1000
+Current State: 8,	 Next State: 13		output changes: 1
+Current State: 13,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 7		output changes: 1
+Current State: 7,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 6		output changes: 1
+Current State: 6,	 Next State: 11		output changes: 2
+	Glitch from 110 to 1011
+Current State: 11,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 6		output changes: 1
+Current State: 6,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 8		output changes: 2
+	Glitch from 10 to 1000
+Current State: 8,	 Next State: 14		output changes: 1
+Current State: 14,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 10		output changes: 2
+	Glitch from 100 to 1010
+Current State: 10,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 7		output changes: 1
+Current State: 7,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 9		output changes: 1
+Current State: 9,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 11		output changes: 2
+	Glitch from 101 to 1011
+Current State: 11,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 7		output changes: 1
+Current State: 7,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 10		output changes: 1
+Current State: 10,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 8		output changes: 2
+	Glitch from 1 to 1000
+Current State: 8,	 Next State: 15		output changes: 1
+Current State: 15,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 11		output changes: 2
+	Glitch from 100 to 1011
+Current State: 11,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 9		output changes: 1
+Current State: 9,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 8		output changes: 0
+Current State: 8,	 Next State: 0		output changes: 0
+Current State: 0,	 Next State: 9		output changes: 1
+Current State: 9,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 9		output changes: 1
+Current State: 9,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 10		output changes: 1
+Current State: 10,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 11		output changes: 1
+Current State: 11,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 11		output changes: 1
+Current State: 11,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 10		output changes: 1
+Current State: 10,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 12		output changes: 1
+Current State: 12,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 10		output changes: 1
+Current State: 10,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 12		output changes: 1
+Current State: 12,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 11		output changes: 1
+Current State: 11,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 9		output changes: 0
+Current State: 9,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 13		output changes: 1
+Current State: 13,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 11		output changes: 1
+Current State: 11,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 12		output changes: 1
+Current State: 12,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 13		output changes: 1
+Current State: 13,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 3		output changes: 0
+Current State: 3,	 Next State: 14		output changes: 1
+Current State: 14,	 Next State: 9		output changes: 0
+Current State: 9,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 15		output changes: 0
+Current State: 15,	 Next State: 10		output changes: 0
+Current State: 10,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 12		output changes: 1
+Current State: 12,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 4		output changes: 1
+Current State: 4,	 Next State: 0		output changes: 1
+Current State: 0,	 Next State: 13		output changes: 1
+Current State: 13,	 Next State: 9		output changes: 0
+Current State: 9,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 13		output changes: 1
+Current State: 13,	 Next State: 10		output changes: 0
+Current State: 10,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 14		output changes: 1
+Current State: 14,	 Next State: 10		output changes: 0
+Current State: 10,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 15		output changes: 1
+Current State: 15,	 Next State: 11		output changes: 0
+Current State: 11,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 1		output changes: 1
+Current State: 1,	 Next State: 14		output changes: 1
+Current State: 14,	 Next State: 11		output changes: 0
+Current State: 11,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 5		output changes: 1
+Current State: 5,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 15		output changes: 1
+Current State: 15,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 9		output changes: 2
+	Glitch from 1100 to 1001
+Current State: 9,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 0		output changes: 0
+Current State: 0,	 Next State: 14		output changes: 1
+Current State: 14,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 10		output changes: 2
+	Glitch from 1100 to 1010
+Current State: 10,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 6		output changes: 1
+Current State: 6,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 2		output changes: 1
+Current State: 2,	 Next State: 0		output changes: 0
+Current State: 0,	 Next State: 15		output changes: 1
+Current State: 15,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 11		output changes: 0
+Current State: 11,	 Next State: 9		output changes: 0
+Current State: 9,	 Next State: 7		output changes: 0
+Current State: 7,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 15		output changes: 1
+Current State: 15,	 Next State: 14		output changes: 0
+Current State: 14,	 Next State: 13		output changes: 0
+Current State: 13,	 Next State: 12		output changes: 0
+Current State: 12,	 Next State: 11		output changes: 2
+	Glitch from 1100 to 1011
+Current State: 11,	 Next State: 10		output changes: 0
+Current State: 10,	 Next State: 9		output changes: 0
+Current State: 9,	 Next State: 8		output changes: 1
+Current State: 8,	 Next State: 7		output changes: 1
+Current State: 7,	 Next State: 6		output changes: 0
+Current State: 6,	 Next State: 5		output changes: 0
+Current State: 5,	 Next State: 4		output changes: 0
+Current State: 4,	 Next State: 3		output changes: 1
+Current State: 3,	 Next State: 2		output changes: 0
+Current State: 2,	 Next State: 1		output changes: 0
+Current State: 1,	 Next State: 0		output changes: 0
+
+Glitches:
+		Glitch in 1 to 1000 from 50 to 70
+		Glitch in 10 to 1000 from 50 to 70
+		Glitch in 11 to 1000 from 50 to 70
+		Glitch in 100 to 1001 from 25 to 70
+		Glitch in 100 to 1010 from 25 to 70
+		Glitch in 100 to 1011 from 25 to 70
+		Glitch in 101 to 1001 from 25 to 50
+		Glitch in 101 to 1010 from 25 to 50
+		Glitch in 101 to 1011 from 25 to 50
+		Glitch in 110 to 1001 from 25 to 50
+		Glitch in 110 to 1010 from 25 to 50
+		Glitch in 110 to 1011 from 25 to 50
+		Glitch in 111 to 1001 from 25 to 50
+		Glitch in 111 to 1010 from 25 to 50
+		Glitch in 111 to 1011 from 25 to 50
+		Glitch in 1100 to 1001 from 25 to 70
+		Glitch in 1100 to 1010 from 25 to 70
+		Glitch in 1100 to 1011 from 25 to 70
+	Total: 18
