@@ -257,7 +257,7 @@ public class Circuit {
     }
     
     public String getOutputFile() {
-        return circuitName+".txt";
+        return "res/" + circuitName+".txt";
     }
 
     public Gate getOutputGate() {

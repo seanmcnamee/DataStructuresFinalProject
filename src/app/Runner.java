@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Runner {
     public static void main(String[] args) throws IOException {
 
-        File circuitFile = new File("circuitFile.txt");
+        File circuitFile = new File("res/circuitFile.txt");
         Circuit c = new Circuit(circuitFile);
         Detector d = new Detector(c);
 

@@ -15,9 +15,6 @@ public class LinkedListNode {
     }
 
     //Side constructors
-    public LinkedListNode() {
-        this(-1, null);
-    }
     public LinkedListNode(int data) {
         this(data, null);
     }
